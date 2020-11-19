@@ -1,7 +1,7 @@
 # Проект «Большое путешествие» [![Build status][travis-image]][travis-url]
 
 * Студент: [Юлия Шатохина](https://up.htmlacademy.ru/ecmascript/13/user/1474119).
-* Наставник: `Неизвестно`.
+* Наставник: [Олег Скляров](https://htmlacademy.ru/profile/id926687).
 
 ---
 
