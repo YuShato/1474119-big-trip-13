@@ -10,9 +10,14 @@
     "start": "webpack-dev-server --open"
   },
   "devDependencies": {
+    "chart.js": "2.9.4",
+    "chartjs-plugin-datalabels": "0.7.0",
     "css-loader": "5.0.1",
+    "dayjs": "1.9.5",
     "eslint": "7.13.0",
     "eslint-config-htmlacademy": "0.6.0",
+    "flatpickr": "4.6.6",
+    "he": "1.2.0",
     "style-loader": "2.0.0",
     "webpack": "4.44.2",
     "webpack-cli": "3.3.12",
@@ -20,5 +25,9 @@
   },
   "engines": {
     "node": "10"
+  },
+  "dependencies": {
+    "i": "0.3.6",
+    "npm": "6.14.9"
   }
 }
