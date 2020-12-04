@@ -1,5 +1,11 @@
-import {getRandomInt, randomBoolean} from "../../utils/utils.js";
+import {
+  getRandomInt,
+  randomBoolean
+} from "../../utils/utils.js";
 import dayjs from 'dayjs';
+
+
+const OFFERS_COUNT = 15;
 
 const getRandomOffer = () => {
 
@@ -117,21 +123,14 @@ const generateEvent = () => {
   return `${events[getRandomInt(0, events.length - 1)]}`;
 };
 
-
-const generateMockTripEvent = () => {
-  const mockTrip = {
-    city: generateCity(),
-    tripEvent: generateEvent(),
-    date: dateForForm(),
-    price: getRandomInt(prices.min, prices.max),
-    startTime: dayjs(dateForForm()).format(`HH:MM`),
-    endTime: `${dayjs(dateForForm()).add(getRandomInt(1, 10), `hour`).format(`HH:MM`)}`
-  };
-  return mockTrip;
-};
-
 const getRandomImg = () => {
-  return `http://picsum.photos/248/152?r=${getRandomInt(0, 100)}`;
+  const createPhotoSrc = () => {
+    return `http://picsum.photos/248/152?r=${getRandomInt(0, 100)}`;
+  };
+
+  const newPhotoArray = new Array(getRandomInt(1, 5)).fill().map(createPhotoSrc);
+  return newPhotoArray;
+
 };
 
 const getSum = () => {
@@ -143,6 +142,27 @@ const getSum = () => {
   return currentSum;
 };
 
+const getTotalSum = () => {
+  console.log(`здесь написать функцию, который считает все цены с учетом выбранных офферов`);
+};
+
+const generateMockTripEvent = () => {
+  const mockTrip = {
+    description: getRandomDescription(),
+    offers: getRandomOffer(),
+    city: generateCity(),
+    tripEvent: generateEvent(),
+    date: dateForForm(),
+    price: getRandomInt(prices.min, prices.max),
+    startTime: dayjs(dateForForm()).format(`HH:MM`),
+    endTime: `${dayjs(dateForForm()).add(getRandomInt(1, 10), `hour`).format(`HH:MM`)}`,
+    photos: getRandomImg(),
+    totalSum: getTotalSum()
+  };
+  return mockTrip;
+};
+
+const currentMockArray = new Array(OFFERS_COUNT).fill().map(generateMockTripEvent);
 
 export {
   getRandomDescription,
@@ -150,6 +170,8 @@ export {
   generateMockTripEvent,
   getRandomImg,
   getSum,
-  generateCity
-};
+  generateCity,
+  currentMockArray,
+  OFFERS_COUNT
 
+};
