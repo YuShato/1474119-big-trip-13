@@ -1,36 +1,13 @@
-import {
-  createTripInfo,
-  upDateTripDates
-} from "./view/tripInfo.js";
-import {
-  createTripControls
-} from "./view/tripControls.js";
-import {
-  createTripFilter
-} from "./view/tripFilter.js";
-import {
-  createTripSorter
-} from "./view/tripSorter.js";
-import {
-  createAddForm
-} from "./view/addForm.js";
-import {
-  createTripPoint
-} from "./view/tripPoint.js";
-import {
-  templatePosition,
-  render
-} from "./utils/utils.js";
-import {
-  getSum,
-  currentMockArray
-} from "./view/mock/data.js";
+import {createTripInfo, upDateTripDates} from "./view/tripInfo.js";
+import {createTripControls} from "./view/tripControls.js";
+import {createTripFilter} from "./view/tripFilter.js";
+import {createTripSorter} from "./view/tripSorter.js";
+import {createAddForm} from "./view/addForm.js";
+import {createTripPoint} from "./view/tripPoint.js";
+import {templatePosition, render} from "./utils/utils.js";
+import {getSum, currentMockArray} from "./view/mock/data.js";
 
-import {
-  filteredPastArray,
-  filteredFuturetArray,
-  sortEventsByDate
-} from "./view/mock/filter.js";
+import {filteredPastArray, filteredFuturetArray} from "./view/mock/filter.js";
 
 const siteMainElement = document.querySelector(`.trip-main`);
 const siteControlElement = document.querySelector(`.trip-controls`);
@@ -97,6 +74,3 @@ tripFilters.addEventListener(`click`, (evt) => {
       upDateTripDates();
   }
 });
-
-console.log(sortEventsByDate().min)
-console.log(sortEventsByDate().max)

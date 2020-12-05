@@ -1,5 +1,3 @@
-// import {getRandomImg, getRandomDescription} from "./mock/data.js";
-
 const createAddForm = () => {
   return `<li class="trip-events__item">
   <form class="event event--edit" action="#" method="post">

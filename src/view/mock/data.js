@@ -1,9 +1,5 @@
-import {
-  getRandomInt,
-  randomBoolean
-} from "../../utils/utils.js";
+import {getRandomInt, randomBoolean} from "../../utils/utils.js";
 import dayjs from 'dayjs';
-
 
 const OFFERS_COUNT = 15;
 
@@ -115,7 +111,6 @@ const dateForForm = () => {
   }
 };
 
-
 const generateCity = () => {
   return `${cities[getRandomInt(0, cities.length - 1)]}`;
 };
@@ -162,7 +157,7 @@ const generateMockTripEvent = () => {
   return mockTrip;
 };
 
-let currentMockArray = new Array(OFFERS_COUNT).fill().map(generateMockTripEvent);
+const currentMockArray = new Array(OFFERS_COUNT).fill().map(generateMockTripEvent);
 
 export {
   getRandomDescription,
