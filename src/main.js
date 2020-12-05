@@ -22,8 +22,7 @@ import {
 } from "./utils/utils.js";
 import {
   getSum,
-  currentMockArray,
-  OFFERS_COUNT,
+  currentMockArray
 } from "./view/mock/data.js";
 
 import {
@@ -78,17 +77,17 @@ newEventBtn.addEventListener(`keydown`, (evt) => {
 
 totalSum.textContent = getSum();
 
-// -----------------
-
 const tripFilters = document.querySelector(`.trip-filters`);
 
 tripFilters.addEventListener(`click`, (evt) => {
-  if (evt.target.value === `past`) {
-    console.log(filteredPastArray)
-    siteEventElement.appendChild(renderEvents(filteredPastArray));
-
-  } else if (evt.target.value === `future`) {
-    siteEventElement.appendChild(renderEvents(filteredFuturetArray));
-    console.log(filteredFuturetArray)
+  switch (evt.target.value) {
+    case `past`:
+      siteEventElement.appendChild(renderEvents(filteredPastArray));
+      break;
+    case `future`:
+      siteEventElement.appendChild(renderEvents(filteredFuturetArray));
+      break;
+    default:
+      siteEventElement.appendChild(renderEvents(currentMockArray));
   }
 });

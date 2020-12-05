@@ -1,8 +1,6 @@
 import dayjs from 'dayjs';
 import {currentMockArray, today} from "./data.js";
 
-
-
 export const humanizeTaskDueDate = (dueDate) => {
   return dayjs(dueDate).format(`D MMMM`);
 };

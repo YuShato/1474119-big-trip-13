@@ -1,7 +1,3 @@
-import {
-  currentMockArray
-} from "./mock/data.js";
-
 const createTripPoint = ({
   city,
   tripEvent,
