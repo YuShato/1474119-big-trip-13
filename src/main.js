@@ -1,5 +1,6 @@
 import {
-  createTripInfo
+  createTripInfo,
+  upDateTripDates
 } from "./view/tripInfo.js";
 import {
   createTripControls
@@ -27,7 +28,8 @@ import {
 
 import {
   filteredPastArray,
-  filteredFuturetArray
+  filteredFuturetArray,
+  sortEventsByDate
 } from "./view/mock/filter.js";
 
 const siteMainElement = document.querySelector(`.trip-main`);
@@ -76,6 +78,7 @@ newEventBtn.addEventListener(`keydown`, (evt) => {
 });
 
 totalSum.textContent = getSum();
+upDateTripDates();
 
 const tripFilters = document.querySelector(`.trip-filters`);
 
@@ -83,11 +86,17 @@ tripFilters.addEventListener(`click`, (evt) => {
   switch (evt.target.value) {
     case `past`:
       siteEventElement.appendChild(renderEvents(filteredPastArray));
+      upDateTripDates();
       break;
     case `future`:
       siteEventElement.appendChild(renderEvents(filteredFuturetArray));
+      upDateTripDates();
       break;
     default:
       siteEventElement.appendChild(renderEvents(currentMockArray));
+      upDateTripDates();
   }
 });
+
+console.log(sortEventsByDate().min)
+console.log(sortEventsByDate().max)
