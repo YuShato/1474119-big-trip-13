@@ -23,8 +23,13 @@ import {
 import {
   getSum,
   currentMockArray,
-  OFFERS_COUNT
+  OFFERS_COUNT,
 } from "./view/mock/data.js";
+
+import {
+  filteredPastArray,
+  filteredFuturetArray
+} from "./view/mock/filter.js";
 
 const siteMainElement = document.querySelector(`.trip-main`);
 const siteControlElement = document.querySelector(`.trip-controls`);
@@ -46,11 +51,12 @@ const onEventBtnPress = () => {
   removeAddForm();
 };
 
-const renderEvents = () => {
+const renderEvents = (array) => {
   const fragment = document.createElement(`ul`);
   fragment.className = `trip-events__list`;
-  for (let i = 0; i < OFFERS_COUNT; i++) {
-    render(fragment, createTripPoint(currentMockArray[i]), templatePosition.BEFORE_END);
+  siteEventElement.innerHTML = ``;
+  for (let i = 0; i < array.length; i++) {
+    render(fragment, createTripPoint(array[i]), templatePosition.BEFORE_END);
   }
   return fragment;
 };
@@ -59,7 +65,7 @@ render(siteMainElement, createTripInfo(), templatePosition.AFTER_BEGIN);
 render(siteControlElement, createTripControls(), templatePosition.BEFORE_END);
 render(siteControlElement, createTripFilter(), templatePosition.BEFORE_END);
 render(siteEventElement, createTripSorter(), templatePosition.BEFORE_END);
-siteEventElement.appendChild(renderEvents());
+siteEventElement.appendChild(renderEvents(currentMockArray));
 const totalSum = document.querySelector(`.trip-info__cost-value`);
 const tripEventsListElement = siteEventElement.querySelector(`.trip-events__list`);
 
@@ -71,3 +77,18 @@ newEventBtn.addEventListener(`keydown`, (evt) => {
 });
 
 totalSum.textContent = getSum();
+
+// -----------------
+
+const tripFilters = document.querySelector(`.trip-filters`);
+
+tripFilters.addEventListener(`click`, (evt) => {
+  if (evt.target.value === `past`) {
+    console.log(filteredPastArray)
+    siteEventElement.appendChild(renderEvents(filteredPastArray));
+
+  } else if (evt.target.value === `future`) {
+    siteEventElement.appendChild(renderEvents(filteredFuturetArray));
+    console.log(filteredFuturetArray)
+  }
+});

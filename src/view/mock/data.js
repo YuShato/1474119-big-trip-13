@@ -109,9 +109,9 @@ const today = dayjs(new Date());
 const dateForForm = () => {
   const currentDate = generateDate();
   if (currentDate === null) {
-    return dayjs(today).format(`DD MMM`);
+    return dayjs(today);
   } else {
-    return dayjs(currentDate).format(`DD MMM`);
+    return dayjs(currentDate);
   }
 };
 
@@ -154,15 +154,15 @@ const generateMockTripEvent = () => {
     tripEvent: generateEvent(),
     date: dateForForm(),
     price: getRandomInt(prices.min, prices.max),
-    startTime: dayjs(dateForForm()).format(`HH:MM`),
-    endTime: `${dayjs(dateForForm()).add(getRandomInt(1, 10), `hour`).format(`HH:MM`)}`,
+    startTime: dayjs(dateForForm()),
+    endTime: `${dayjs(dateForForm()).add(getRandomInt(1, 10), `hour`)}`,
     photos: getRandomImg(),
     totalSum: getTotalSum()
   };
   return mockTrip;
 };
 
-const currentMockArray = new Array(OFFERS_COUNT).fill().map(generateMockTripEvent);
+let currentMockArray = new Array(OFFERS_COUNT).fill().map(generateMockTripEvent);
 
 export {
   getRandomDescription,
@@ -172,6 +172,6 @@ export {
   getSum,
   generateCity,
   currentMockArray,
-  OFFERS_COUNT
-
+  OFFERS_COUNT,
+  today
 };

@@ -9,19 +9,19 @@ const createTripPoint = ({
   price,
   startTime,
   endTime
-} = currentMockArray) => {
-  const timeGap = () => {
-    let firstDate = startTime;
-    let secondDate = endTime;
+}) => {
+  // const timeGap = () => {
+  //   let firstDate = startTime;
+  //   let secondDate = endTime;
 
-    let getDate = (string) => new Date(0, 0, 0, string.split(`:`)[0], string.split(`:`)[1]);
-    let different = (getDate(secondDate) - getDate(firstDate));
+  //   let getDate = (string) => new Date(0, 0, 0, string.split(`:`)[0], string.split(`:`)[1]);
+  //   let different = (getDate(secondDate) - getDate(firstDate));
 
-    let hours = Math.floor((different % 86400000) / 3600000);
-    let minutes = Math.round(((different % 86400000) % 3600000) / 60000);
-    let result = hours + `H ` + minutes + `M`;
-    return result;
-  };
+  //   let hours = Math.floor((different % 86400000) / 3600000);
+  //   let minutes = Math.round(((different % 86400000) % 3600000) / 60000);
+  //   let result = hours + `H ` + minutes + `M`;
+  //   return result;
+  // };
 
   return `<li class="trip-events__item">
   <div class="event">
@@ -36,7 +36,7 @@ const createTripPoint = ({
         —
         <time class="event__end-time" datetime="${endTime}">${endTime}</time>
       </p>
-      <p class="event__duration">${timeGap()}</p>
+      <p class="event__duration"></p>
     </div>
     <p class="event__price">
       €&nbsp;<span class="event__price-value">${price}</span>
