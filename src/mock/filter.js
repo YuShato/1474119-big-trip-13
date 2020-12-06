@@ -1,14 +1,6 @@
 import dayjs from 'dayjs';
 import {currentMockArray, today} from "./data.js";
 
-const humanizeTaskDueDate = (dueDate) => {
-  return dayjs(dueDate).format(`MMM DD`);
-};
-
-const humanizeTaskDueTime = (dueDate) => {
-  return dayjs(dueDate).format(`HH:MM`);
-};
-
 const filteredFuturetArray = currentMockArray.filter((elem) => {
   return (dayjs(elem.endTime) > dayjs(today));
 });
@@ -35,7 +27,5 @@ const sortEventsByDate = () => {
 export {
   filteredPastArray,
   filteredFuturetArray,
-  humanizeTaskDueTime,
-  humanizeTaskDueDate,
   sortEventsByDate
 };

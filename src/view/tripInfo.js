@@ -1,6 +1,6 @@
 import {render, templatePosition} from "../utils/utils.js";
-import {generateCity} from "./mock/data.js";
-import {sortEventsByDate} from "./mock/filter.js";
+import {generateCity} from "../mock/data.js";
+import {sortEventsByDate} from "../mock/filter.js";
 
 const createTripInfo = () => {
   return `<section class="trip-main__trip-info  trip-info">

@@ -5,9 +5,9 @@ import {createTripSorter} from "./view/tripSorter.js";
 import {createAddForm} from "./view/addForm.js";
 import {createTripPoint} from "./view/tripPoint.js";
 import {templatePosition, render} from "./utils/utils.js";
-import {getSum, currentMockArray} from "./view/mock/data.js";
+import {getSum, currentMockArray} from "./mock/data.js";
 
-import {filteredPastArray, filteredFuturetArray} from "./view/mock/filter.js";
+import {filteredPastArray, filteredFuturetArray} from "./mock/filter.js";
 
 const siteMainElement = document.querySelector(`.trip-main`);
 const siteControlElement = document.querySelector(`.trip-controls`);

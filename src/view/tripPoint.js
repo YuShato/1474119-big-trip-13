@@ -1,4 +1,4 @@
-import {humanizeTaskDueTime, humanizeTaskDueDate} from "./mock/filter.js";
+import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate} from "../utils/utils.js";
 const createTripPoint = ({
   city,
   tripEvent,
@@ -7,19 +7,6 @@ const createTripPoint = ({
   startTime,
   endTime
 }) => {
-  const timeGap = () => {
-    let firstDate = humanizeTaskDueTime(startTime);
-    let secondDate = humanizeTaskDueTime(endTime);
-
-    let getDate = (string) => new Date(0, 0, 0, string.split(`:`)[0], string.split(`:`)[1]);
-    let different = (getDate(secondDate) - getDate(firstDate));
-
-    let hours = Math.floor((different % 86400000) / 3600000);
-    let minutes = Math.round(((different % 86400000) % 3600000) / 60000);
-    let result = hours + `H ` + minutes + `M`;
-    return result;
-  };
-
   return `<li class="trip-events__item">
   <div class="event">
     <time class="event__date" datetime="${date}">${humanizeTaskDueDate(date)}</time>
@@ -33,7 +20,7 @@ const createTripPoint = ({
         —
         <time class="event__end-time" datetime="${endTime}">${humanizeTaskDueTime(endTime)}</time>
       </p>
-      <p class="event__duration">${timeGap()}</p>
+      <p class="event__duration">${timeGap(startTime, endTime)}</p>
     </div>
     <p class="event__price">
       €&nbsp;<span class="event__price-value">${price}</span>

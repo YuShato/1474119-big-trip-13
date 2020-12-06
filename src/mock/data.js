@@ -1,4 +1,4 @@
-import {getRandomInt, randomBoolean} from "../../utils/utils.js";
+import {getRandomInt, getRandomBoolean, getRandomPositiveInt, getArrayRandomElement} from "../utils/utils.js";
 import dayjs from 'dayjs';
 
 const OFFERS_COUNT = 15;
@@ -15,40 +15,40 @@ const getRandomOffer = () => {
       name: `Add luggage`,
       id: `event-offer-luggage-1`,
       price: 30,
-      isChecked: randomBoolean(),
+      isChecked: getRandomBoolean(),
       idName: `event-offer-luggage`
     },
     comfort: {
       name: `Switch to comfort class`,
       id: `event-offer-comfort-1`,
       price: 100,
-      isChecked: randomBoolean(),
+      isChecked: getRandomBoolean(),
       idName: `event-offer-comfort`
     },
     meal: {
       name: `Add meal`,
       id: `event-offer-meal-1`,
       price: 15,
-      isChecked: randomBoolean(),
+      isChecked: getRandomBoolean(),
       idName: `event-offer-meal`
     },
     seats: {
       name: `Choose seats`,
       id: `event-offer-seats-1`,
       price: 5,
-      isChecked: randomBoolean(),
+      isChecked: getRandomBoolean(),
       idName: `event-offer-seats`
     },
     train: {
       name: `Travel by train`,
       id: `event-offer-train-1`,
       price: 40,
-      isChecked: randomBoolean(),
+      isChecked: getRandomBoolean(),
       idName: `event-offer-train`
     }
   };
 
-  const offersCount = getRandomInt(specialOfferCount.MAX);
+  const offersCount = getRandomPositiveInt(specialOfferCount.MAX);
 
   const randomProperty = function (obj) {
     let keys = Object.keys(obj);
@@ -73,10 +73,10 @@ const getRandomDescription = () => {
     MAX: 5
   };
 
-  const currentLength = getRandomInt(descriptionSize.MAX) + 1;
+  const currentLength = getRandomPositiveInt(descriptionSize.MAX) + 1;
   let filledArray = Array.from({
     length: currentLength
-  }, () => (arrayOfDescription[getRandomInt(arrayOfDescription.length - 1)]));
+  }, () => (getArrayRandomElement(arrayOfDescription)));
   const randomDescription = filledArray.join(`. `);
   return randomDescription;
 };
@@ -89,7 +89,7 @@ const prices = {
 };
 
 const generateDate = () => {
-  const isDate = Boolean(getRandomInt(0, 1));
+  const isDate = Boolean(getRandomPositiveInt(1));
 
   if (!isDate) {
     return null;
@@ -112,15 +112,15 @@ const dateForForm = () => {
 };
 
 const generateCity = () => {
-  return `${cities[getRandomInt(0, cities.length - 1)]}`;
+  return `${getArrayRandomElement(cities)}`;
 };
 const generateEvent = () => {
-  return `${events[getRandomInt(0, events.length - 1)]}`;
+  return `${getArrayRandomElement(events)}`;
 };
 
 const getRandomImg = () => {
   const createPhotoSrc = () => {
-    return `http://picsum.photos/248/152?r=${getRandomInt(0, 100)}`;
+    return `http://picsum.photos/248/152?r=${getRandomPositiveInt(100)}`;
   };
 
   const newPhotoArray = new Array(getRandomInt(1, 5)).fill().map(createPhotoSrc);
@@ -142,7 +142,7 @@ const getTotalSum = () => {
 };
 
 const generateMockTripEvent = () => {
-  const mockTrip = {
+  return {
     description: getRandomDescription(),
     offers: getRandomOffer(),
     city: generateCity(),
@@ -154,7 +154,6 @@ const generateMockTripEvent = () => {
     photos: getRandomImg(),
     totalSum: getTotalSum()
   };
-  return mockTrip;
 };
 
 const currentMockArray = new Array(OFFERS_COUNT).fill().map(generateMockTripEvent);

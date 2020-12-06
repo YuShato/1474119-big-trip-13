@@ -1,5 +1,5 @@
 import {render, templatePosition} from "../utils/utils.js";
-import {getRandomOffer} from "./mock/data.js";
+import {getRandomOffer} from "../mock/data.js";
 
 const currentOffer = ({id, name, price, idName, isChecked}) => {
   return `<div class="event__offer-selector">
