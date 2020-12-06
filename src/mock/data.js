@@ -90,30 +90,22 @@ const prices = {
 
 const generateDate = () => {
   const isDate = Boolean(getRandomPositiveInt(1));
-
-  if (!isDate) {
-    return null;
-  }
-
   const maxDaysGap = 7;
   const daysGap = getRandomInt(-maxDaysGap, maxDaysGap);
 
-  return dayjs().add(daysGap, `day`).toDate();
+  return !isDate ? null : dayjs().add(daysGap, `day`).toDate();
 };
 
 const today = dayjs(new Date());
 const dateForForm = () => {
   const currentDate = generateDate();
-  if (currentDate === null) {
-    return dayjs(today);
-  } else {
-    return dayjs(currentDate);
-  }
+  return currentDate === null ? dayjs(today) : dayjs(currentDate);
 };
 
 const generateCity = () => {
   return `${getArrayRandomElement(cities)}`;
 };
+
 const generateEvent = () => {
   return `${getArrayRandomElement(events)}`;
 };
