@@ -1,64 +1,76 @@
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import updateLocale from 'dayjs/plugin/updateLocale';
 
-const templatePosition = {
-  BEFORE_BEGIN: `beforebegin`,
+dayjs.extend(duration);
+
+dayjs.extend(updateLocale);
+
+dayjs.updateLocale(`en`, {
+  relativeTime: {
+    m: `M`,
+    H: `H`,
+    d: `D`,
+  }
+});
+
+const TemplatePosition = {
   AFTER_BEGIN: `afterbegin`,
+  AFTER_END: `afterend`,
   BEFORE_END: `beforeend`,
-  AFTER_END: `afterend`
 };
-
-const OFFERS_COUNT = 5;
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
 
-const getRandomInt = (minValue, maxValue) => {
-  const lower = Math.ceil(Math.min(minValue, maxValue));
-  const upper = Math.floor(Math.max(minValue, maxValue));
-
-  return Math.floor(lower + Math.random() * (upper - lower + 1));
+const generateTemplateElements = (data, callBack) => {
+  const fragment = generateTemplate(data, callBack);
+  return fragment.innerHTML;
 };
+
+const createDivContainer = (className) => {
+  const newFragment = document.createElement(`div`);
+  newFragment.className = className;
+  return newFragment;
+};
+
+const generateTemplate = (data, callBack) => {
+  const fragment = createDivContainer();
+  for (let i = 0; i < data.length; i++) {
+    const element = callBack(data[i]);
+    render(fragment, element, TemplatePosition.BEFORE_END);
+  }
+  return fragment;
+};
+
+const getRandomInt = (minValue, maxValue) => Math.floor(minValue + Math.random() * (maxValue - minValue + 1));
 
 const getRandomBoolean = () => !!getRandomInt(0, 1);
 
 const getRandomPositiveInt = (maxValue) => getRandomInt(0, maxValue);
 
-const getArrayRandomElement = (array) => {
-  return array[getRandomPositiveInt(array.length - 1)];
-};
+const getArrayRandomElement = (array) => array[getRandomPositiveInt(array.length - 1)];
 
-const humanizeTaskDueDate = (dueDate) => {
-  return dayjs(dueDate).format(`MMM DD`);
-};
+const humanizeTaskDueDate = (dueDate) => dayjs(dueDate).format(`MMM DD`);
 
-const humanizeTaskDueTime = (dueDate) => {
-  return dayjs(dueDate).format(`HH:MM`);
-};
+const humanizeTaskDueTime = (dueDate) => dayjs(dueDate).format(`HH:MM`);
 
-const timeGap = (startTime, endTime) => {
-  let firstDate = humanizeTaskDueTime(startTime);
-  let secondDate = humanizeTaskDueTime(endTime);
+const timeGap = (startTime, endTime) => dayjs.duration(endTime.diff(startTime)).format(`HH:MM`);
 
-  let getDate = (string) => new Date(0, 0, 0, string.split(`:`)[0], string.split(`:`)[1]);
-  let different = (getDate(secondDate) - getDate(firstDate));
-
-  let hours = Math.floor((different % 86400000) / 3600000);
-  let minutes = Math.round(((different % 86400000) % 3600000) / 60000);
-  let result = hours + `H ` + minutes + `M`;
-  return result;
-};
-
+const updateLocaleTime = (time) => dayjs.updateLocale(time);
 
 export {
-  templatePosition,
+  TemplatePosition,
   render,
   getRandomInt,
-  OFFERS_COUNT,
   getRandomBoolean,
   getRandomPositiveInt,
   getArrayRandomElement,
   timeGap,
   humanizeTaskDueDate,
-  humanizeTaskDueTime
+  humanizeTaskDueTime,
+  generateTemplateElements,
+  updateLocaleTime,
+  createDivContainer
 };

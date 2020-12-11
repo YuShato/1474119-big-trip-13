@@ -2,14 +2,13 @@ import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate} from "../utils/utils.
 const createTripPoint = ({
   city,
   tripEvent,
-  date,
-  price,
+  totalSum,
   startTime,
   endTime
 }) => {
   return `<li class="trip-events__item">
   <div class="event">
-    <time class="event__date" datetime="${date}">${humanizeTaskDueDate(date)}</time>
+    <time class="event__date" datetime="${startTime}">${humanizeTaskDueDate(startTime)}</time>
     <div class="event__type">
       <img class="event__type-icon" width="42" height="42" src="img/icons/${tripEvent.toLowerCase()}.png" alt="Event type icon">
     </div>
@@ -23,11 +22,11 @@ const createTripPoint = ({
       <p class="event__duration">${timeGap(startTime, endTime)}</p>
     </div>
     <p class="event__price">
-      €&nbsp;<span class="event__price-value">${price}</span>
+      €&nbsp;<span class="event__price-value">${totalSum}</span>
     </p>
     <div class = "trip-offers">
+      <h4 class="visually-hidden">Offers:</h4>
     </div>
-    <h4 class="visually-hidden">Offers:</h4>
     <button class="event__favorite-btn  event__favorite-btn" type="button">
       <span class="visually-hidden">Add to favorite</span>
       <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">

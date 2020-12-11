@@ -1,8 +1,107 @@
-import {getRandomInt, getRandomBoolean, getRandomPositiveInt, getArrayRandomElement} from "../utils/utils.js";
+import {getRandomInt, getRandomPositiveInt, getArrayRandomElement} from "../utils/utils.js";
 import dayjs from 'dayjs';
 
 const OFFERS_COUNT = 15;
 
+const MAX_GAP_DAYS = 7;
+
+const filters = [
+  {
+    name: `Everything`,
+    isChecked: `checked`
+  },
+  {
+    name: `Future`,
+    isChecked: ``
+  },
+  {
+    name: `Past`,
+    isChecked: ``
+  },
+];
+
+const formButtons = [{
+  name: `Save`,
+  class: `event__save-btn  btn  btn--blue`,
+  type: `submit`
+}, {
+  name: `Cancel`,
+  class: `event__reset-btn`,
+  type: `reset`
+}];
+
+const sorters = [
+  {
+    name: `Day`,
+    isChecked: `checked`,
+    isDisable: ``
+  },
+  {
+    name: `Event`,
+    isChecked: ``,
+    isDisable: `disabled`
+  },
+  {
+    name: `Time`,
+    isChecked: ``,
+    isDisable: ``
+  },
+  {
+    name: `Price`,
+    isChecked: ``,
+    isDisable: ``
+  },
+  {
+    name: `Offers`,
+    isChecked: ``,
+    isDisable: `disabled`
+  }
+];
+
+const eventTimeLabels = [
+  {
+    name: `From`,
+    id: `event-start-time-1`
+  },
+  {
+    name: `To`,
+    id: `event-end-time-1`
+  }
+];
+
+const optionCities = [`Amsterdam`, `Geneva`, `Chamonix`];
+const eventTypes = [
+  {
+    name: `Taxi`,
+    type: `transport-all`},
+  {
+    name: `Bus`,
+    type: `public-transport`},
+  {
+    name: `Train`,
+    type: `public-transport`},
+  {name: `Ship`,
+    type: `public-transport`},
+  {
+    name: `Transport`,
+    type: `public-transport`},
+  {
+    name: `Drive`,
+    type: `transport-all`},
+  {
+    name: `Flight`,
+    type: `public-transport`},
+  {
+    name: `Check-in`,
+    type: `other`},
+  {
+    name: `Sightseeing`,
+    type: `other`},
+  {
+    name: `Restaurant`,
+    type: `other`},
+]
+;
 const getRandomOffer = () => {
 
   const specialOfferCount = {
@@ -10,41 +109,48 @@ const getRandomOffer = () => {
     MAX: 5
   };
 
+  const checkedValue = [`checked`, ``];
+
   const offerDetails = {
     luggage: {
       name: `Add luggage`,
       id: `event-offer-luggage-1`,
       price: 30,
-      isChecked: getRandomBoolean(),
-      idName: `event-offer-luggage`
+      isChecked: getArrayRandomElement(checkedValue),
+      idName: `event-offer-luggage`,
+      type: `transport-all`
     },
     comfort: {
       name: `Switch to comfort class`,
       id: `event-offer-comfort-1`,
       price: 100,
-      isChecked: getRandomBoolean(),
-      idName: `event-offer-comfort`
+      isChecked: getArrayRandomElement(checkedValue),
+      idName: `event-offer-comfort`,
+      type: `transport-all`
     },
     meal: {
       name: `Add meal`,
       id: `event-offer-meal-1`,
       price: 15,
-      isChecked: getRandomBoolean(),
-      idName: `event-offer-meal`
+      isChecked: getArrayRandomElement(checkedValue),
+      idName: `event-offer-meal`,
+      type: `public-transport`
     },
     seats: {
       name: `Choose seats`,
       id: `event-offer-seats-1`,
       price: 5,
-      isChecked: getRandomBoolean(),
-      idName: `event-offer-seats`
+      isChecked: getArrayRandomElement(checkedValue),
+      idName: `event-offer-seats`,
+      type: `public-transport`
     },
     train: {
       name: `Travel by train`,
       id: `event-offer-train-1`,
       price: 40,
-      isChecked: getRandomBoolean(),
-      idName: `event-offer-train`
+      isChecked: getArrayRandomElement(checkedValue),
+      idName: `event-offer-train`,
+      type: `transport-all`
     }
   };
 
@@ -54,19 +160,20 @@ const getRandomOffer = () => {
     let keys = Object.keys(obj);
     return obj[keys[keys.length * Math.random() << 0]];
   };
-  const newOffersArray = [];
+
+  const newOffers = [];
 
   for (let i = 0; i < offersCount; i++) {
-    newOffersArray.push(randomProperty(offerDetails));
+    newOffers.push(randomProperty(offerDetails));
   }
 
-  return newOffersArray;
+  return Array.from(new Set(newOffers));
 };
 
 const getRandomDescription = () => {
   const descriptionText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`;
 
-  const arrayOfDescription = descriptionText.split(`. `);
+  const sentences = descriptionText.split(`. `);
 
   const descriptionSize = {
     MIN: 1,
@@ -74,11 +181,10 @@ const getRandomDescription = () => {
   };
 
   const currentLength = getRandomPositiveInt(descriptionSize.MAX) + 1;
-  let filledArray = Array.from({
+  let tripDescriptions = Array.from({
     length: currentLength
-  }, () => (getArrayRandomElement(arrayOfDescription)));
-  const randomDescription = filledArray.join(`. `);
-  return randomDescription;
+  }, () => (getArrayRandomElement(sentences)));
+  return tripDescriptions.join(`. `);
 };
 
 const cities = [`Lisboa`, `Porto`, `Sesimbra`, `Coimbra`, `Cascais`];
@@ -88,36 +194,21 @@ const prices = {
   max: 300
 };
 
-const generateDate = () => {
-  const isDate = Boolean(getRandomPositiveInt(1));
-  const maxDaysGap = 7;
-  const daysGap = getRandomInt(-maxDaysGap, maxDaysGap);
+const generateRandomDate = () => dayjs().add(getRandomInt(-MAX_GAP_DAYS, MAX_GAP_DAYS), `days`);
 
-  return !isDate ? null : dayjs().add(daysGap, `day`).toDate();
+const generateRandomDateOffset = (startDate) => {
+  return startDate.add(getRandomPositiveInt(MAX_GAP_DAYS), `days`).add(getRandomInt(1, 10), `hours`);
 };
 
 const today = dayjs(new Date());
-const dateForForm = () => {
-  const currentDate = generateDate();
-  return currentDate === null ? dayjs(today) : dayjs(currentDate);
-};
 
-const generateCity = () => {
-  return `${getArrayRandomElement(cities)}`;
-};
+const generateCity = () => `${getArrayRandomElement(cities)}`;
 
-const generateEvent = () => {
-  return `${getArrayRandomElement(events)}`;
-};
+const generateEvent = () => `${getArrayRandomElement(events)}`;
 
 const getRandomImg = () => {
-  const createPhotoSrc = () => {
-    return `http://picsum.photos/248/152?r=${getRandomPositiveInt(100)}`;
-  };
-
-  const newPhotoArray = new Array(getRandomInt(1, 5)).fill().map(createPhotoSrc);
-  return newPhotoArray;
-
+  const createPhotoSrc = () => `http://picsum.photos/248/152?r=${getRandomPositiveInt(100)}`;
+  return new Array(getRandomInt(1, 5)).fill().map(createPhotoSrc);
 };
 
 const getSum = () => {
@@ -129,22 +220,22 @@ const getSum = () => {
   return currentSum;
 };
 
-const getTotalSum = () => {
-  console.log(`здесь написать функцию, который считает все цены с учетом выбранных офферов`);
-};
-
 const generateMockTripEvent = () => {
+  const startDate = generateRandomDate();
+  const eventPrice = getRandomInt(prices.min, prices.max);
+  const allOffers = getRandomOffer();
+  const totalTripPrice = allOffers.filter((offer) => offer.isChecked === `checked`).reduce((sum, elem) => sum + elem.price, 0) + eventPrice;
+
   return {
     description: getRandomDescription(),
-    offers: getRandomOffer(),
+    offers: allOffers,
     city: generateCity(),
     tripEvent: generateEvent(),
-    date: dateForForm(),
-    price: getRandomInt(prices.min, prices.max),
-    startTime: dayjs(dateForForm()),
-    endTime: `${dayjs(dateForForm()).add(getRandomInt(1, 10), `hour`)}`,
+    price: eventPrice,
+    startTime: startDate,
+    endTime: generateRandomDateOffset(startDate),
     photos: getRandomImg(),
-    totalSum: getTotalSum()
+    totalSum: totalTripPrice
   };
 };
 
@@ -159,5 +250,11 @@ export {
   generateCity,
   currentMockArray,
   OFFERS_COUNT,
-  today
+  today,
+  filters,
+  sorters,
+  eventTypes,
+  eventTimeLabels,
+  optionCities,
+  formButtons
 };
