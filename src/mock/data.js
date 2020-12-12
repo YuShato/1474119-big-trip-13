@@ -5,6 +5,8 @@ const OFFERS_COUNT = 15;
 
 const MAX_GAP_DAYS = 7;
 
+const HEADER_CITIES_COUNT = 3;
+
 const filters = [
   {
     name: `Everything`,
@@ -239,16 +241,15 @@ const generateMockTripEvent = () => {
   };
 };
 
-const currentMockArray = new Array(OFFERS_COUNT).fill().map(generateMockTripEvent);
+const eventMockData = new Array(OFFERS_COUNT).fill().map(generateMockTripEvent);
+const headerCities = new Array(HEADER_CITIES_COUNT).fill().map(generateCity);
 
 export {
   getRandomDescription,
   getRandomOffer,
-  generateMockTripEvent,
   getRandomImg,
   getSum,
-  generateCity,
-  currentMockArray,
+  eventMockData,
   OFFERS_COUNT,
   today,
   filters,
@@ -256,5 +257,6 @@ export {
   eventTypes,
   eventTimeLabels,
   optionCities,
-  formButtons
+  formButtons,
+  headerCities
 };

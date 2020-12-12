@@ -85,11 +85,13 @@ const generateAddForm = () => {
 };
 
 const getEventType = (dataType) => {
+  let eventType = ``;
   for (let i = 0; i < eventTypes.length; i++) {
     if (dataType === eventTypes[i].name) {
-      return eventTypes[i].type;
+      eventType = eventTypes[i].type;
     }
   }
+  return eventType;
 };
 
 const createFormOffers = () => {

@@ -1,9 +1,7 @@
-import {generateCity} from "../mock/data.js";
-
-const createTripInfo = () => {
+const createTripInfo = (cities) => {
   return `<section class="trip-main__trip-info  trip-info">
   <div class="trip-info__main">
-    <h1 class="trip-info__title">${generateCity()} &mdash; ${generateCity()} &mdash; ${generateCity()}</h1>
+    <h1 class="trip-info__title">${cities[0]} &mdash; ${cities[1]} &mdash; ${cities[2]}</h1>
   </div>
 
   <p class="trip-info__cost">

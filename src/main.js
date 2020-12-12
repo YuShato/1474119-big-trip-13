@@ -1,7 +1,7 @@
 import {createTripInfo} from "./view/info.js";
 import {createTripControls} from "./view/controls.js";
 import {TemplatePosition, render} from "./utils/utils.js";
-import {getSum, currentMockArray} from "./mock/data.js";
+import {getSum, eventMockData, headerCities} from "./mock/data.js";
 import {generateTripFilterForm, upDateTripDates, renderEvents, siteEventElement} from "./utils/templates.js";
 import {filteredPastArray, filteredFuturetArray} from "./mock/filter.js";
 import {generateAddForm, generateFormOffers, eventTypeUpdate} from "./utils/formTemplate.js";
@@ -27,10 +27,10 @@ const onEventBtnPress = () => {
   removeAddForm();
 };
 
-render(siteMainElement, createTripInfo(), TemplatePosition.AFTER_BEGIN);
+render(siteMainElement, createTripInfo(headerCities), TemplatePosition.AFTER_BEGIN);
 render(siteControlElement, createTripControls(), TemplatePosition.BEFORE_END);
 generateTripFilterForm();
-siteEventElement.appendChild(renderEvents(currentMockArray));
+siteEventElement.appendChild(renderEvents(eventMockData));
 const totalSum = document.querySelector(`.trip-info__cost-value`);
 const tripEventsListElement = siteEventElement.querySelector(`.trip-events__list`);
 
@@ -57,7 +57,7 @@ tripFilterElements.addEventListener(`click`, (evt) => {
       upDateTripDates();
       break;
     default:
-      siteEventElement.appendChild(renderEvents(currentMockArray));
+      siteEventElement.appendChild(renderEvents(eventMockData));
       upDateTripDates();
   }
 });

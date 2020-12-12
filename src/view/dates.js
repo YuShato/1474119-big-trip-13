@@ -1,6 +1,4 @@
-import {sortEventsByDate} from "../mock/filter.js";
-
-const tripInfoDates = () => `<p class="trip-info__dates">${sortEventsByDate().min}&nbsp;&mdash;&nbsp;${sortEventsByDate().max}</p>`;
+const tripInfoDates = (dates) => `<p class="trip-info__dates">${dates.min}&nbsp;&mdash;&nbsp;${dates.max}</p>`;
 
 export {
   tripInfoDates

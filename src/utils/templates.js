@@ -8,6 +8,7 @@ import {createSorter} from "../view/sorter.js";
 import {createSorterForm} from "../view/sorterForm.js";
 import {createTripPoint} from "../view/point.js";
 import {createEventOffer} from "../view/eventOffer.js";
+import {sortEventsByDate} from "../mock/filter";
 
 const siteControlElement = document.querySelector(`.trip-controls`);
 const pageMainElement = document.querySelector(`.page-main`);
@@ -49,7 +50,7 @@ const upDateTripDates = () => {
   for (let i = 0; i < allCreatedDates.length; i++) {
     allCreatedDates[i].parentElement.removeChild(allCreatedDates[i]);
   }
-  render(tripInfoElement, tripInfoDates(), TemplatePosition.BEFORE_END);
+  render(tripInfoElement, tripInfoDates(sortEventsByDate()), TemplatePosition.BEFORE_END);
 };
 
 const generateTripFilterForm = () => {

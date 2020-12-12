@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
-import {currentMockArray, today} from "./data.js";
+import {eventMockData, today} from "./data.js";
 
-const filteredFuturetArray = currentMockArray.filter((elem) => (dayjs(elem.endTime) > dayjs(today)));
+const filteredFuturetArray = eventMockData.filter((elem) => (dayjs(elem.endTime) > dayjs(today)));
 
-const filteredPastArray = currentMockArray.filter((elem) => (dayjs(elem.endTime) < dayjs(today)));
+const filteredPastArray = eventMockData.filter((elem) => (dayjs(elem.endTime) < dayjs(today)));
 
 const sortEventsByDate = () => {
   const allDates = document.querySelectorAll(`.event__date`);
@@ -18,7 +18,6 @@ const sortEventsByDate = () => {
     max: dayjs(allDatesFilter[allDatesFilter.length - 1]).format(`DD MMM`)
   };
 };
-
 
 export {
   filteredPastArray,
