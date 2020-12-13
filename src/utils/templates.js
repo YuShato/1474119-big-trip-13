@@ -44,7 +44,7 @@ const generateEventOffers = (array, i) => {
   return fragment.innerHTML;
 };
 
-const upDateTripDates = () => {
+const updateTripDates = () => {
   const tripInfoElement = document.querySelector(`.trip-info__main`);
   const allCreatedDates = tripInfoElement.querySelectorAll(`.trip-info__dates`);
   for (let i = 0; i < allCreatedDates.length; i++) {
@@ -71,7 +71,7 @@ const generateSorterForm = () => {
 
 export {
   generateTripFilterForm,
-  upDateTripDates,
+  updateTripDates,
   siteControlElement,
   generateSorterForm,
   renderEvents,

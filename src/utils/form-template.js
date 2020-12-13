@@ -120,7 +120,7 @@ const getOffersSum = () => {
   return totalOffersSum;
 };
 
-const upDateFormDescription = () => {
+const updateFormDescription = () => {
   const destinationContainer = document.querySelector(`.event__section--destination`);
   const descriptionElement = destinationContainer.querySelector(`.event__destination-description`);
   descriptionElement.textContent = getRandomDescription();
@@ -143,7 +143,7 @@ const eventTypeUpdate = () => {
       if (evt.target.classList.contains(`event__type-label`)) {
         onChangeEventType(evt);
         generateFormOffers();
-        upDateFormDescription();
+        updateFormDescription();
         priceInputElement.value = getOffersSum();
       }
     });
@@ -154,7 +154,7 @@ export {
   generateAddForm,
   generateFormOffers,
   getOffersSum,
-  upDateFormDescription,
+  updateFormDescription,
   onChangeEventType,
   eventTypeUpdate
 };

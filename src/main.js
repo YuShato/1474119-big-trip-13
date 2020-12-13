@@ -2,9 +2,9 @@ import {createTripInfo} from "./view/info.js";
 import {createTripControls} from "./view/controls.js";
 import {TemplatePosition, render} from "./utils/utils.js";
 import {getSum, eventMockData, headerCities} from "./mock/data.js";
-import {generateTripFilterForm, upDateTripDates, renderEvents, siteEventElement} from "./utils/templates.js";
+import {generateTripFilterForm, updateTripDates, renderEvents, siteEventElement} from "./utils/templates.js";
 import {filteredPastArray, filteredFuturetArray} from "./mock/filter.js";
-import {generateAddForm, generateFormOffers, eventTypeUpdate, upDateFormDescription} from "./utils/formTemplate.js";
+import {generateAddForm, generateFormOffers, eventTypeUpdate, updateFormDescription} from "./utils/formTemplate.js";
 
 const siteMainElement = document.querySelector(`.trip-main`);
 const siteControlElement = document.querySelector(`.trip-controls`);
@@ -23,7 +23,7 @@ const onEventBtnPress = () => {
   render(tripEventsListElement, generateAddForm(), TemplatePosition.AFTER_BEGIN);
   eventTypeUpdate();
   generateFormOffers();
-  upDateFormDescription();
+  updateFormDescription();
   newEventBtn.removeEventListener(`click`, onEventBtnPress);
   removeAddForm();
 };
@@ -43,7 +43,7 @@ newEventBtn.addEventListener(`keydown`, (evt) => {
 });
 
 totalSum.textContent = getSum();
-upDateTripDates();
+updateTripDates();
 
 const tripFilterElements = document.querySelector(`.trip-filters`);
 
@@ -51,15 +51,15 @@ tripFilterElements.addEventListener(`click`, (evt) => {
   switch (evt.target.value) {
     case `past`:
       siteEventElement.appendChild(renderEvents(filteredPastArray));
-      upDateTripDates();
+      updateTripDates();
       break;
     case `future`:
       siteEventElement.appendChild(renderEvents(filteredFuturetArray));
-      upDateTripDates();
+      updateTripDates();
       break;
     default:
       siteEventElement.appendChild(renderEvents(eventMockData));
-      upDateTripDates();
+      updateTripDates();
   }
 });
 
