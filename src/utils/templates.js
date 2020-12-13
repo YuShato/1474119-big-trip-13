@@ -1,13 +1,13 @@
 import {TemplatePosition, render, generateTemplateElements, createDivContainer} from "./utils";
 import {filters, sorters} from "../mock/data.js";
 import {createTripFilter} from "../view/filter.js";
-import {createTripFilterForm} from "../view/filterForm.js";
-import {createButtonAccept} from "../view/acceptButton.js";
+import {createTripFilterForm} from "../view/filter-form.js";
+import {createButtonAccept} from "../view/accept-button.js";
 import {tripInfoDates} from "../view/dates.js";
 import {createSorter} from "../view/sorter.js";
-import {createSorterForm} from "../view/sorterForm.js";
+import {createSorterForm} from "../view/sorter-form.js";
 import {createTripPoint} from "../view/point.js";
-import {createEventOffer} from "../view/eventOffer.js";
+import {createEventOffer} from "../view/event-offer.js";
 import {sortEventsByDate} from "../mock/filter";
 
 const siteControlElement = document.querySelector(`.trip-controls`);
