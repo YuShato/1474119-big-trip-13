@@ -1,18 +1,7 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
-import updateLocale from 'dayjs/plugin/updateLocale';
 
 dayjs.extend(duration);
-
-dayjs.extend(updateLocale);
-
-dayjs.updateLocale(`en`, {
-  relativeTime: {
-    m: `M`,
-    H: `H`,
-    d: `D`,
-  }
-});
 
 const TemplatePosition = {
   AFTER_BEGIN: `afterbegin`,
@@ -56,7 +45,7 @@ const humanizeTaskDueDate = (dueDate) => dayjs(dueDate).format(`MMM DD`);
 
 const humanizeTaskDueTime = (dueDate) => dayjs(dueDate).format(`HH:MM`);
 
-const timeGap = (startTime, endTime) => dayjs.duration(endTime.diff(startTime)).format(`HH:MM`);
+const timeGap = (startTime, endTime) => dayjs.duration(endTime.diff(startTime)).format(`H[H] MM[M]`);
 
 const updateLocaleTime = (time) => dayjs.updateLocale(time);
 

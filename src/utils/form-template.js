@@ -134,20 +134,24 @@ const onChangeEventType = (evt) => {
   typeOutput.textContent = evt.target.textContent;
 };
 
+const fillAddForm = (evt) => {
+  const priceInputElement = document.querySelector(`.event__input--price`);
+  if (evt.target.classList.contains(`event__type-label`)) {
+    onChangeEventType(evt);
+    generateFormOffers();
+    updateFormDescription();
+    priceInputElement.value = getOffersSum();
+  }
+};
+
+const onTypeInputChange = () => {
+  const typeListElement = document.querySelector(`.event__type-group`);
+  typeListElement.addEventListener(`click`, fillAddForm);
+};
+
 const eventTypeUpdate = () => {
   const typeInputElement = document.querySelector(`.event__type-toggle`);
-  const priceInputElement = document.querySelector(`.event__input--price`);
-  typeInputElement.addEventListener(`change`, () => {
-    const typeListElement = document.querySelector(`.event__type-group`);
-    typeListElement.addEventListener(`click`, (evt) => {
-      if (evt.target.classList.contains(`event__type-label`)) {
-        onChangeEventType(evt);
-        generateFormOffers();
-        updateFormDescription();
-        priceInputElement.value = getOffersSum();
-      }
-    });
-  });
+  typeInputElement.addEventListener(`change`, onTypeInputChange);
 };
 
 export {

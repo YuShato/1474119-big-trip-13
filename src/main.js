@@ -4,7 +4,7 @@ import {TemplatePosition, render} from "./utils/utils.js";
 import {getSum, eventMockData, headerCities} from "./mock/data.js";
 import {generateTripFilterForm, updateTripDates, renderEvents, siteEventElement} from "./utils/templates.js";
 import {filteredPastArray, filteredFuturetArray} from "./mock/filter.js";
-import {generateAddForm, generateFormOffers, eventTypeUpdate, updateFormDescription} from "./utils/formTemplate.js";
+import {generateAddForm, generateFormOffers, eventTypeUpdate, updateFormDescription} from "./utils/form-template.js";
 
 const siteMainElement = document.querySelector(`.trip-main`);
 const siteControlElement = document.querySelector(`.trip-controls`);
@@ -62,4 +62,3 @@ tripFilterElements.addEventListener(`click`, (evt) => {
       updateTripDates();
   }
 });
-
