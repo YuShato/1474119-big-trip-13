@@ -38,7 +38,7 @@ const generateEventOffers = (array, i) => {
   const offersListElement = document.createElement(`ul`);
   offersListElement.className = `event__selected-offers`;
 
-  const checkedOffers = array[i].offers.filter((elem) => elem.isChecked === `checked`);
+  const checkedOffers = array[i].offers.filter((elem) => elem.isChecked);
   render(offersListElement, generateTemplateElements(checkedOffers, createEventOffer), TemplatePosition.BEFORE_END);
   fragment.appendChild(offersListElement);
   return fragment.innerHTML;

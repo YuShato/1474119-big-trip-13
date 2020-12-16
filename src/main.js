@@ -11,7 +11,7 @@ const siteControlElement = document.querySelector(`.trip-controls`);
 const newEventBtn = document.querySelector(`.trip-main__event-add-btn`);
 
 const removeAddForm = () => {
-  const addForm = tripEventsListElement.querySelector(`.trip-events__item:first-child`);
+  const addForm = siteEventElement.querySelector(`.trip-events__item:first-child`);
   const closeAddFormBtn = addForm.querySelector(`.event__reset-btn`);
   closeAddFormBtn.addEventListener(`click`, () => {
     addForm.parentElement.removeChild(addForm);
@@ -20,6 +20,7 @@ const removeAddForm = () => {
 };
 
 const onEventBtnPress = () => {
+  const tripEventsListElement = siteEventElement.querySelector(`.trip-events__list`);
   render(tripEventsListElement, generateAddForm(), TemplatePosition.AFTER_BEGIN);
   eventTypeUpdate();
   generateFormOffers();
@@ -33,7 +34,6 @@ render(siteControlElement, createTripControls(), TemplatePosition.BEFORE_END);
 generateTripFilterForm();
 siteEventElement.appendChild(renderEvents(eventMockData));
 const totalSum = document.querySelector(`.trip-info__cost-value`);
-const tripEventsListElement = siteEventElement.querySelector(`.trip-events__list`);
 
 newEventBtn.addEventListener(`click`, onEventBtnPress);
 newEventBtn.addEventListener(`keydown`, (evt) => {

@@ -1,4 +1,4 @@
-import {getRandomInt, getRandomPositiveInt, getArrayRandomElement} from "../utils/utils.js";
+import {getRandomInt, getRandomPositiveInt, getArrayRandomElement, getRandomBoolean} from "../utils/utils.js";
 import dayjs from 'dayjs';
 
 const OFFERS_COUNT = 15;
@@ -75,35 +75,45 @@ const optionCities = [`Amsterdam`, `Geneva`, `Chamonix`];
 const eventTypes = [
   {
     name: `Taxi`,
-    type: `transport-all`},
+    type: `transport-all`
+  },
   {
     name: `Bus`,
-    type: `public-transport`},
+    type: `public-transport`
+  },
   {
     name: `Train`,
-    type: `public-transport`},
-  {name: `Ship`,
-    type: `public-transport`},
+    type: `public-transport`
+  },
+  {
+    name: `Ship`,
+    type: `public-transport`
+  },
   {
     name: `Transport`,
-    type: `public-transport`},
+    type: `public-transport`
+  },
   {
     name: `Drive`,
-    type: `transport-all`},
+    type: `transport-all`
+  },
   {
     name: `Flight`,
-    type: `public-transport`},
+    type: `public-transport`
+  },
   {
     name: `Check-in`,
-    type: `other`},
+    type: `other`
+  },
   {
     name: `Sightseeing`,
-    type: `other`},
+    type: `other`
+  },
   {
     name: `Restaurant`,
-    type: `other`},
-]
-;
+    type: `other`
+  },
+];
 const getRandomOffer = () => {
 
   const specialOfferCount = {
@@ -111,14 +121,12 @@ const getRandomOffer = () => {
     MAX: 5
   };
 
-  const checkedValue = [`checked`, ``];
-
   const offerDetails = {
     luggage: {
       name: `Add luggage`,
       id: `event-offer-luggage-1`,
       price: 30,
-      isChecked: getArrayRandomElement(checkedValue),
+      isChecked: getRandomBoolean(),
       idName: `event-offer-luggage`,
       type: `transport-all`
     },
@@ -126,7 +134,7 @@ const getRandomOffer = () => {
       name: `Switch to comfort class`,
       id: `event-offer-comfort-1`,
       price: 100,
-      isChecked: getArrayRandomElement(checkedValue),
+      isChecked: getRandomBoolean(),
       idName: `event-offer-comfort`,
       type: `transport-all`
     },
@@ -134,7 +142,7 @@ const getRandomOffer = () => {
       name: `Add meal`,
       id: `event-offer-meal-1`,
       price: 15,
-      isChecked: getArrayRandomElement(checkedValue),
+      isChecked: getRandomBoolean(),
       idName: `event-offer-meal`,
       type: `public-transport`
     },
@@ -142,7 +150,7 @@ const getRandomOffer = () => {
       name: `Choose seats`,
       id: `event-offer-seats-1`,
       price: 5,
-      isChecked: getArrayRandomElement(checkedValue),
+      isChecked: getRandomBoolean(),
       idName: `event-offer-seats`,
       type: `public-transport`
     },
@@ -150,7 +158,7 @@ const getRandomOffer = () => {
       name: `Travel by train`,
       id: `event-offer-train-1`,
       price: 40,
-      isChecked: getArrayRandomElement(checkedValue),
+      isChecked: getRandomBoolean(),
       idName: `event-offer-train`,
       type: `transport-all`
     }
