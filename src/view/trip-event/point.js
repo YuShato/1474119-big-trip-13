@@ -1,10 +1,11 @@
-import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate} from "../utils/utils.js";
+import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate} from "../../utils/utils.js";
 const createTripPoint = ({
   city,
   tripEvent,
   totalSum,
   startTime,
-  endTime
+  endTime,
+  checkedOffers
 }) => {
   return `<li class="trip-events__item">
   <div class="event">
@@ -26,6 +27,9 @@ const createTripPoint = ({
     </p>
     <div class = "trip-offers">
       <h4 class="visually-hidden">Offers:</h4>
+      <ul class="event__selected-offers">
+      ${checkedOffers}
+    </ul>
     </div>
     <button class="event__favorite-btn  event__favorite-btn" type="button">
       <span class="visually-hidden">Add to favorite</span>

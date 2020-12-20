@@ -1,4 +1,5 @@
-import {getRandomInt, getRandomPositiveInt, getArrayRandomElement, getRandomBoolean} from "../utils/utils.js";
+import {getRandomInt, getRandomPositiveInt, getArrayRandomElement, getRandomBoolean, getRandomProperty, generateTemplateElements} from "../utils/utils.js";
+import {createEventOffer} from "../view/trip-event/event-offer.js";
 import dayjs from 'dayjs';
 
 const OFFERS_COUNT = 15;
@@ -7,113 +8,6 @@ const MAX_GAP_DAYS = 7;
 
 const HEADER_CITIES_COUNT = 3;
 
-const filters = [
-  {
-    name: `Everything`,
-    isChecked: `checked`
-  },
-  {
-    name: `Future`,
-    isChecked: ``
-  },
-  {
-    name: `Past`,
-    isChecked: ``
-  },
-];
-
-const formButtons = [{
-  name: `Save`,
-  class: `event__save-btn  btn  btn--blue`,
-  type: `submit`
-}, {
-  name: `Cancel`,
-  class: `event__reset-btn`,
-  type: `reset`
-}];
-
-const sorters = [
-  {
-    name: `Day`,
-    isChecked: `checked`,
-    isDisable: ``
-  },
-  {
-    name: `Event`,
-    isChecked: ``,
-    isDisable: `disabled`
-  },
-  {
-    name: `Time`,
-    isChecked: ``,
-    isDisable: ``
-  },
-  {
-    name: `Price`,
-    isChecked: ``,
-    isDisable: ``
-  },
-  {
-    name: `Offers`,
-    isChecked: ``,
-    isDisable: `disabled`
-  }
-];
-
-const eventTimeLabels = [
-  {
-    name: `From`,
-    id: `event-start-time-1`
-  },
-  {
-    name: `To`,
-    id: `event-end-time-1`
-  }
-];
-
-const optionCities = [`Amsterdam`, `Geneva`, `Chamonix`];
-const eventTypes = [
-  {
-    name: `Taxi`,
-    type: `transport-all`
-  },
-  {
-    name: `Bus`,
-    type: `public-transport`
-  },
-  {
-    name: `Train`,
-    type: `public-transport`
-  },
-  {
-    name: `Ship`,
-    type: `public-transport`
-  },
-  {
-    name: `Transport`,
-    type: `public-transport`
-  },
-  {
-    name: `Drive`,
-    type: `transport-all`
-  },
-  {
-    name: `Flight`,
-    type: `public-transport`
-  },
-  {
-    name: `Check-in`,
-    type: `other`
-  },
-  {
-    name: `Sightseeing`,
-    type: `other`
-  },
-  {
-    name: `Restaurant`,
-    type: `other`
-  },
-];
 const getRandomOffer = () => {
 
   const specialOfferCount = {
@@ -127,54 +21,44 @@ const getRandomOffer = () => {
       id: `event-offer-luggage-1`,
       price: 30,
       isChecked: getRandomBoolean(),
-      idName: `event-offer-luggage`,
-      type: `transport-all`
+      idName: `event-offer-luggage`
     },
     comfort: {
       name: `Switch to comfort class`,
       id: `event-offer-comfort-1`,
       price: 100,
       isChecked: getRandomBoolean(),
-      idName: `event-offer-comfort`,
-      type: `transport-all`
+      idName: `event-offer-comfort`
     },
     meal: {
       name: `Add meal`,
       id: `event-offer-meal-1`,
       price: 15,
       isChecked: getRandomBoolean(),
-      idName: `event-offer-meal`,
-      type: `public-transport`
+      idName: `event-offer-meal`
     },
     seats: {
       name: `Choose seats`,
       id: `event-offer-seats-1`,
       price: 5,
       isChecked: getRandomBoolean(),
-      idName: `event-offer-seats`,
-      type: `public-transport`
+      idName: `event-offer-seats`
     },
     train: {
       name: `Travel by train`,
       id: `event-offer-train-1`,
       price: 40,
       isChecked: getRandomBoolean(),
-      idName: `event-offer-train`,
-      type: `transport-all`
+      idName: `event-offer-train`
     }
   };
 
   const offersCount = getRandomPositiveInt(specialOfferCount.MAX);
 
-  const randomProperty = function (obj) {
-    let keys = Object.keys(obj);
-    return obj[keys[keys.length * Math.random() << 0]];
-  };
-
   const newOffers = [];
 
   for (let i = 0; i < offersCount; i++) {
-    newOffers.push(randomProperty(offerDetails));
+    newOffers.push(getRandomProperty(offerDetails));
   }
 
   return Array.from(new Set(newOffers));
@@ -191,7 +75,7 @@ const getRandomDescription = () => {
   };
 
   const currentLength = getRandomPositiveInt(descriptionSize.MAX) + 1;
-  let tripDescriptions = Array.from({
+  const tripDescriptions = Array.from({
     length: currentLength
   }, () => (getArrayRandomElement(sentences)));
   return tripDescriptions.join(`. `);
@@ -210,31 +94,23 @@ const generateRandomDateOffset = (startDate) => {
   return startDate.add(getRandomPositiveInt(MAX_GAP_DAYS), `days`).add(getRandomInt(1, 10), `hours`);
 };
 
-const today = dayjs(new Date());
-
 const generateCity = () => `${getArrayRandomElement(cities)}`;
 
 const generateEvent = () => `${getArrayRandomElement(events)}`;
 
 const getRandomImg = () => {
   const createPhotoSrc = () => `http://picsum.photos/248/152?r=${getRandomPositiveInt(100)}`;
-  return new Array(getRandomInt(1, 5)).fill().map(createPhotoSrc);
+  return new Array(getRandomInt(1, 5)).fill({}).map(createPhotoSrc);
 };
 
-const getSum = () => {
-  let tripPrices = document.querySelectorAll(`.event__price-value`);
-  let currentSum = 0;
-  for (let i = 0; i < tripPrices.length; i++) {
-    currentSum += Number(tripPrices[i].textContent);
-  }
-  return currentSum;
-};
+const getAllEventsSum = (data) => data.reduce((sum, elem) => sum + elem.totalSum, 0);
 
 const generateMockTripEvent = () => {
   const startDate = generateRandomDate();
   const eventPrice = getRandomInt(prices.min, prices.max);
   const allOffers = getRandomOffer();
   const totalTripPrice = allOffers.filter((offer) => offer.isChecked === `checked`).reduce((sum, elem) => sum + elem.price, 0) + eventPrice;
+  const checkedOffersList = generateTemplateElements(allOffers.filter((offer) => offer.isChecked), createEventOffer);
 
   return {
     description: getRandomDescription(),
@@ -245,26 +121,20 @@ const generateMockTripEvent = () => {
     startTime: startDate,
     endTime: generateRandomDateOffset(startDate),
     photos: getRandomImg(),
-    totalSum: totalTripPrice
+    totalSum: totalTripPrice,
+    checkedOffers: checkedOffersList
   };
 };
 
-const eventMockData = new Array(OFFERS_COUNT).fill().map(generateMockTripEvent);
-const headerCities = new Array(HEADER_CITIES_COUNT).fill().map(generateCity);
+const eventMockData = new Array(OFFERS_COUNT).fill({}).map(generateMockTripEvent);
+const headerCities = new Array(HEADER_CITIES_COUNT).fill({}).map(generateCity);
 
 export {
   getRandomDescription,
   getRandomOffer,
   getRandomImg,
-  getSum,
+  getAllEventsSum,
   eventMockData,
   OFFERS_COUNT,
-  today,
-  filters,
-  sorters,
-  eventTypes,
-  eventTimeLabels,
-  optionCities,
-  formButtons,
   headerCities
 };

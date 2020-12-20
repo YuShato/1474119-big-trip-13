@@ -49,6 +49,11 @@ const timeGap = (startTime, endTime) => dayjs.duration(endTime.diff(startTime)).
 
 const updateLocaleTime = (time) => dayjs.updateLocale(time);
 
+const getRandomProperty = function (obj) {
+  const keys = Object.keys(obj);
+  return obj[keys[keys.length * Math.random() << 0]];
+};
+
 export {
   TemplatePosition,
   render,
@@ -61,5 +66,6 @@ export {
   humanizeTaskDueTime,
   generateTemplateElements,
   updateLocaleTime,
-  createDivContainer
+  createDivContainer,
+  getRandomProperty
 };

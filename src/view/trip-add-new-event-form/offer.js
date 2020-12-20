@@ -1,4 +1,4 @@
-const createOffer = (elem) => {
+export const createOffer = (elem) => {
   return `<div class="event__offer-selector">
       <input class="event__offer-checkbox  visually-hidden" id="${elem.id}" type="checkbox" name="${elem.idName}" ${elem.isChecked ? `checked` : ``}>
         <label class="event__offer-label" for="${elem.id}">
@@ -7,8 +7,4 @@ const createOffer = (elem) => {
          <span class="event__offer-price">${elem.price}</span>
       </label>
   </div>`;
-};
-
-export {
-  createOffer
 };
