@@ -1,4 +1,4 @@
-import {TemplatePosition, render, createContainerElement} from "../../utils/utils.js";
+import {RenderPosition, renderTemplate, createContainerElement} from "../../utils/utils.js";
 import {createTripPointTemplate} from "./point.js";
 
 
@@ -9,14 +9,14 @@ const generateEvents = (array) => {
   const fragment = createContainerElement(`ul`, `trip-events__list`);
   siteEventElement.innerHTML = ``;
   for (let i = 0; i < array.length; i++) {
-    render(fragment, generateTripPoints(array, i), TemplatePosition.BEFORE_END);
+    renderTemplate(fragment, generateTripPoints(array, i), RenderPosition.BEFORE_END);
   }
   return fragment;
 };
 
 const generateTripPoints = (array, i) => {
   const fragment = createContainerElement(`div`);
-  render(fragment, createTripPointTemplate(array[i]), TemplatePosition.BEFORE_END);
+  renderTemplate(fragment, createTripPointTemplate(array[i]), RenderPosition.BEFORE_END);
   return fragment.innerHTML;
 };
 

@@ -1,11 +1,11 @@
-import {TemplatePosition, render} from "../../utils/utils.js";
+import {RenderPosition, renderTemplate} from "../../utils/utils.js";
 import {createTripDatesTemplate} from "./dates.js";
 import {getDurationOfTravel} from "../../utils/filter";
 
 const updateTripDates = (dates) => {
   const tripInfoElement = document.querySelector(`.trip-info__main`);
   tripInfoElement.innerHTML = ``;
-  render(tripInfoElement, createTripDatesTemplate(getDurationOfTravel(dates)), TemplatePosition.BEFORE_END);
+  renderTemplate(tripInfoElement, createTripDatesTemplate(getDurationOfTravel(dates)), RenderPosition.BEFORE_END);
 };
 
 export {
