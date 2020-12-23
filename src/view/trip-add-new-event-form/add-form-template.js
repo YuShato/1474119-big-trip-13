@@ -1,26 +1,27 @@
 import dayjs from 'dayjs';
-import {generateTemplateElements} from "../../utils/utils.js";
-import {createEventTypeInput} from "./type-input.js";
+import {generateTemplatesFromData} from "../../utils/utils.js";
+import {createTypeInputTemplate} from "./type-input.js";
 import {getRandomDescription, getRandomOffer} from "../../mock/data.js";
-import {createEventTypeWrapper} from "./types.js";
-import {createCityOption} from "./option-city.js";
-import {createEventInputTime} from "./time-input.js";
-import {createPriceField} from "./price-field.js";
-import {createFormButton} from "./form-button.js";
-import {createOffer} from "./offer.js";
+import {createTypesWrapperTemplate} from "./types.js";
+import {createCityOptionTemplate} from "./option-city.js";
+import {createTimeInputTemplate} from "./time-input.js";
+import {createPriceFieldTemplate} from "./price-field.js";
+import {createFormButtonTemplate} from "./form-button.js";
+import {createOfferTemplate} from "./offer.js";
 import {getRandomImg} from "../../mock/data.js";
-import {createFormPhoto} from "./photo.js";
+import {createFormPhotoTemplate} from "./photo.js";
+import {DATE_FORMAT} from "../../const.js";
 
 const eventTimeLabels = [
   {
     name: `From`,
     id: `event-start-time-1`,
-    placeholder: dayjs().format(`DD/MM/YYYY`)
+    placeholder: dayjs().format(DATE_FORMAT)
   },
   {
     name: `To`,
     id: `event-end-time-1`,
-    placeholder: dayjs().format(`DD/MM/YYYY`)
+    placeholder: dayjs().format(DATE_FORMAT)
   }
 ];
 
@@ -79,27 +80,27 @@ const formButtons = [{
   type: `reset`
 }];
 
-const createEventTypesListHtml = () => createEventTypeWrapper(generateTemplateElements(eventTypes, createEventTypeInput));
+const createEventTypesListTemplate = () => createTypesWrapperTemplate(generateTemplatesFromData(eventTypes, createTypeInputTemplate));
 
-const createOffersData = () => Array.from(new Set(getRandomOffer()));
+const generateOffersData = () => Array.from(new Set(getRandomOffer()));
 
-const createCityOptionsHtml = () => generateTemplateElements(optionCities, createCityOption);
+const generateCityOptionHtml = () => generateTemplatesFromData(optionCities, createCityOptionTemplate);
 
-const generateTimeInputsHtml = () => generateTemplateElements(eventTimeLabels, createEventInputTime);
+const generateTimeInputsHtml = () => generateTemplatesFromData(eventTimeLabels, createTimeInputTemplate);
 
-const generateButtonsHtml = () => generateTemplateElements(formButtons, createFormButton);
+const generateButtonsHtml = () => generateTemplatesFromData(formButtons, createFormButtonTemplate);
 
-const generateOffersHtml = () => generateTemplateElements(createOffersData(), createOffer);
+const generateOfferHtml = () => generateTemplatesFromData(generateOffersData(), createOfferTemplate);
 
-const generateEventPhotosHtml = () => generateTemplateElements(getRandomImg(), createFormPhoto);
+const generateEventPhotosHtml = () => generateTemplatesFromData(getRandomImg(), createFormPhotoTemplate);
 
-const addFormTemplate = () => {
+const addFormPartsTemplate = () => {
   return {
-    types: createEventTypesListHtml(),
-    offers: generateOffersHtml(),
-    cities: createCityOptionsHtml(),
+    types: createEventTypesListTemplate(),
+    offers: generateOfferHtml(),
+    cities: generateCityOptionHtml(),
     time: generateTimeInputsHtml(),
-    price: createPriceField(),
+    price: createPriceFieldTemplate(),
     buttons: generateButtonsHtml(),
     description: getRandomDescription(),
     photos: generateEventPhotosHtml()
@@ -107,6 +108,6 @@ const addFormTemplate = () => {
 };
 
 export {
-  addFormTemplate
+  addFormPartsTemplate
 };
 

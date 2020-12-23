@@ -1,1 +1,1 @@
-export const createFormPhoto = (src) => `<img class="event__photo" src="${src}" alt="Event photo">`;
+export const createFormPhotoTemplate = (src) => `<img class="event__photo" src="${src}" alt="Event photo">`;

@@ -1,4 +1,4 @@
-export const createTripFiltersFilter = (filter) => {
+export const createTripFiltersTemplate = (filter) => {
   const elementNameLowerCase = filter.name.toLowerCase();
   return `<div class="trip-filters__filter">
   <input id="filter-${elementNameLowerCase}"

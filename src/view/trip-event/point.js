@@ -1,5 +1,5 @@
 import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate} from "../../utils/utils.js";
-const createTripPoint = ({
+const createTripPointTemplate = ({
   city,
   tripEvent,
   totalSum,
@@ -45,5 +45,4 @@ const createTripPoint = ({
 };
 
 export {
-  createTripPoint
-};
+  createTripPointTemplate};

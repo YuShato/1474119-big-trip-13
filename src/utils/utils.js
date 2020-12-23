@@ -13,19 +13,19 @@ const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
 
-const generateTemplateElements = (data, callBack) => {
-  const fragment = generateTemplate(data, callBack);
+const generateTemplatesFromData = (data, callBack) => {
+  const fragment = renderCollectionUsingCallback(data, callBack);
   return fragment.innerHTML;
 };
 
-const createDivContainer = (className) => {
-  const newFragment = document.createElement(`div`);
+const createContainerElement = (elem, className) => {
+  const newFragment = document.createElement(elem);
   newFragment.className = className;
   return newFragment;
 };
 
-const generateTemplate = (data, callBack) => {
-  const fragment = createDivContainer();
+const renderCollectionUsingCallback = (data, callBack) => {
+  const fragment = createContainerElement(`div`);
   for (let i = 0; i < data.length; i++) {
     const element = callBack(data[i]);
     render(fragment, element, TemplatePosition.BEFORE_END);
@@ -47,8 +47,6 @@ const humanizeTaskDueTime = (dueDate) => dayjs(dueDate).format(`HH:MM`);
 
 const timeGap = (startTime, endTime) => dayjs.duration(endTime.diff(startTime)).format(`H[H] MM[M]`);
 
-const updateLocaleTime = (time) => dayjs.updateLocale(time);
-
 const getRandomProperty = function (obj) {
   const keys = Object.keys(obj);
   return obj[keys[keys.length * Math.random() << 0]];
@@ -64,8 +62,7 @@ export {
   timeGap,
   humanizeTaskDueDate,
   humanizeTaskDueTime,
-  generateTemplateElements,
-  updateLocaleTime,
-  createDivContainer,
+  generateTemplatesFromData,
+  createContainerElement,
   getRandomProperty
 };

@@ -1,4 +1,4 @@
-export const createEventTypeWrapper = (eventTypesHtml) => {
+export const createTypesWrapperTemplate = (eventTypesHtml) => {
   return `<div class="event__type-wrapper">
   <label class="event__type  event__type-btn" for="event-type-toggle-1">
     <span class="visually-hidden">Choose event type</span>

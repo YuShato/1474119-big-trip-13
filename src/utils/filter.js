@@ -1,7 +1,9 @@
 import dayjs from 'dayjs';
 import {eventMockData} from "../mock/data.js";
 import {updateTripDates} from "../view/page-header/header-templates.js";
-import {renderEvents} from "../view/trip-event/event-template.js";
+import {generateEvents} from "../view/trip-event/event-template.js";
+import {renderSorterForm} from "../view/trip-sorters/sorter-template.js";
+
 
 const siteEventElement = document.querySelector(`.trip-events`);
 
@@ -20,7 +22,8 @@ const getDurationOfTravel = (dates) => {
 };
 
 const updateTripEvents = (data) => {
-  siteEventElement.appendChild(renderEvents(data));
+  siteEventElement.appendChild(generateEvents(data));
+  renderSorterForm();
   updateTripDates(data);
 };
 

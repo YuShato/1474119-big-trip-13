@@ -1,45 +1,45 @@
-import {createSorter} from "./sorter.js";
-import {createSorterForm} from "./sorter-form.js";
-import {TemplatePosition, render, generateTemplateElements} from "../../utils/utils.js";
+import {createSorterTemplate} from "./sorter.js";
+import {createSorterFormTemplate} from "./sorter-form.js";
+import {TemplatePosition, render, generateTemplatesFromData} from "../../utils/utils.js";
 
 const pageMainElement = document.querySelector(`.page-main`);
 
 const sorters = [
   {
     name: `Day`,
-    isChecked: `checked`,
-    isDisable: ``
+    isChecked: true,
+    isDisable: false
   },
   {
     name: `Event`,
-    isChecked: ``,
-    isDisable: `disabled`
+    isChecked: false,
+    isDisable: true
   },
   {
     name: `Time`,
-    isChecked: ``,
-    isDisable: ``
+    isChecked: false,
+    isDisable: false
   },
   {
     name: `Price`,
-    isChecked: ``,
-    isDisable: ``
+    isChecked: false,
+    isDisable: false
   },
   {
     name: `Offers`,
-    isChecked: ``,
-    isDisable: `disabled`
+    isChecked: false,
+    isDisable: true
   }
 ];
 
-const generateSorterTemplatesHtml = () => generateTemplateElements(sorters, createSorter);
+const generateSorterTemplatesHtml = () => generateTemplatesFromData(sorters, createSorterTemplate);
 
-const generateSorterForm = () => {
+const renderSorterForm = () => {
   const tripEventsElement = pageMainElement.querySelector(`.trip-events`);
-  render(tripEventsElement, createSorterForm(generateSorterTemplatesHtml()), TemplatePosition.AFTER_BEGIN);
+  render(tripEventsElement, createSorterFormTemplate(generateSorterTemplatesHtml()), TemplatePosition.AFTER_BEGIN);
   return tripEventsElement;
 };
 
 export {
-  generateSorterForm
+  renderSorterForm
 };

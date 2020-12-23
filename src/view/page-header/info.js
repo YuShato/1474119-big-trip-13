@@ -1,4 +1,4 @@
-export const createTripInfo = (cities) => {
+export const createTripInfoTemplate = (cities) => {
   return `<section class="trip-main__trip-info  trip-info">
   <div class="trip-info__main">
     <h1 class="trip-info__title">${cities[0]} &mdash; ${cities[1]} &mdash; ${cities[2]}</h1>

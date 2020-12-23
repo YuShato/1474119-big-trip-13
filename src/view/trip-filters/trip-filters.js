@@ -1,26 +1,26 @@
-import {createTripFiltersFilter} from "./trip-filters-filter-template";
-import {createTripFilters} from "./trip-filters-template";
+import {createTripFiltersTemplate} from "./trip-filters-filter-template";
+import {createTripFilterTemplate} from "./trip-filters-template";
 
 const FILTERS = [
   {
     name: `Everything`,
-    isChecked: `checked`
+    isChecked: true
   },
   {
     name: `Future`,
-    isChecked: ``
+    isChecked: false
   },
   {
     name: `Past`,
-    isChecked: ``
+    isChecked: false
   },
 ];
 
-const createTripFilterForm = () => {
-  const filters = FILTERS.map((filter) => createTripFiltersFilter(filter)).join(``);
-  return createTripFilters(filters);
+const generateTripFilterForm = () => {
+  const filters = FILTERS.map((filter) => createTripFiltersTemplate(filter)).join(``);
+  return createTripFilterTemplate(filters);
 };
 
 export {
-  createTripFilterForm
+  generateTripFilterForm
 };

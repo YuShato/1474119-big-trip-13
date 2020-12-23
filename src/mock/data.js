@@ -1,10 +1,15 @@
-import {getRandomInt, getRandomPositiveInt, getArrayRandomElement, getRandomBoolean, getRandomProperty, generateTemplateElements} from "../utils/utils.js";
-import {createEventOffer} from "../view/trip-event/event-offer.js";
+import {getRandomInt, getRandomPositiveInt, getArrayRandomElement, getRandomBoolean, getRandomProperty, generateTemplatesFromData} from "../utils/utils.js";
+import {createEventOfferTemplate} from "../view/trip-event/event-offer.js";
 import dayjs from 'dayjs';
 
 const OFFERS_COUNT = 15;
 
 const MAX_GAP_DAYS = 7;
+
+const maxGapHours = {
+  MIN: 1,
+  MAX: 10
+};
 
 const HEADER_CITIES_COUNT = 3;
 
@@ -91,7 +96,7 @@ const prices = {
 const generateRandomDate = () => dayjs().add(getRandomInt(-MAX_GAP_DAYS, MAX_GAP_DAYS), `days`);
 
 const generateRandomDateOffset = (startDate) => {
-  return startDate.add(getRandomPositiveInt(MAX_GAP_DAYS), `days`).add(getRandomInt(1, 10), `hours`);
+  return startDate.add(getRandomPositiveInt(MAX_GAP_DAYS), `days`).add(getRandomInt(maxGapHours.MIN, maxGapHours.MAX), `hours`);
 };
 
 const generateCity = () => `${getArrayRandomElement(cities)}`;
@@ -110,7 +115,7 @@ const generateMockTripEvent = () => {
   const eventPrice = getRandomInt(prices.min, prices.max);
   const allOffers = getRandomOffer();
   const totalTripPrice = allOffers.filter((offer) => offer.isChecked === `checked`).reduce((sum, elem) => sum + elem.price, 0) + eventPrice;
-  const checkedOffersList = generateTemplateElements(allOffers.filter((offer) => offer.isChecked), createEventOffer);
+  const checkedOffersList = generateTemplatesFromData(allOffers.filter((offer) => offer.isChecked), createEventOfferTemplate);
 
   return {
     description: getRandomDescription(),

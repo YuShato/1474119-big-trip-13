@@ -1,1 +1,1 @@
-export const createCityOption = (elem) => `<option value="${elem}"></option>`;
+export const createCityOptionTemplate = (elem) => `<option value="${elem}"></option>`;

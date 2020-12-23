@@ -1,11 +1,11 @@
-import {createTripInfo} from "./view/page-header/info.js";
-import {createTripControls} from "./view/page-header/controls.js";
+import {createTripInfoTemplate} from "./view/page-header/info.js";
+import {createTripControlsTemplate} from "./view/page-header/controls.js";
 import {TemplatePosition, render} from "./utils/utils.js";
 import {getAllEventsSum, eventMockData, headerCities} from "./mock/data.js";
 import {updateTripEvents, onChangeTimeFilter} from "./utils/filter.js";
-import {createTripFilterForm} from "./view/trip-filters/trip-filters.js";
-import {createAddForm} from "./view/trip-add-new-event-form/add-form";
-import {addFormTemplate} from "./view/trip-add-new-event-form/add-form-template.js";
+import {generateTripFilterForm} from "./view/trip-filters/trip-filters.js";
+import {createAddFormTemplate} from "./view/trip-add-new-event-form/add-form";
+import {addFormPartsTemplate} from "./view/trip-add-new-event-form/add-form-template.js";
 
 const pageMainElement = document.querySelector(`.page-body__page-main`);
 const siteMainElement = document.querySelector(`.trip-main`);
@@ -13,9 +13,9 @@ const siteControlElement = document.querySelector(`.trip-controls`);
 const newEventBtn = document.querySelector(`.trip-main__event-add-btn`);
 const siteEventElement = pageMainElement.querySelector(`.trip-events`);
 
-const generateAddForm = () => {
+const renderAddForm = () => {
   const tripEventsListElement = siteEventElement.querySelector(`.trip-events__list`);
-  render(tripEventsListElement, createAddForm(addFormTemplate()), TemplatePosition.AFTER_BEGIN);
+  render(tripEventsListElement, createAddFormTemplate(addFormPartsTemplate()), TemplatePosition.AFTER_BEGIN);
 };
 
 const removeAddForm = () => {
@@ -25,7 +25,7 @@ const removeAddForm = () => {
 };
 
 const onNewEventBtnPress = () => {
-  generateAddForm();
+  renderAddForm();
   newEventBtn.removeEventListener(`click`, onNewEventBtnPress);
   const formCancelBtn = pageMainElement.querySelector(`.event__reset-btn`);
   formCancelBtn.addEventListener(`click`, removeAddForm);
@@ -43,9 +43,9 @@ newEventBtn.addEventListener(`keydown`, (evt) => {
   }
 });
 
-render(siteMainElement, createTripInfo(headerCities), TemplatePosition.AFTER_BEGIN);
-render(siteControlElement, createTripControls(), TemplatePosition.BEFORE_END);
-render(siteControlElement, createTripFilterForm(), TemplatePosition.BEFORE_END);
+render(siteMainElement, createTripInfoTemplate(headerCities), TemplatePosition.AFTER_BEGIN);
+render(siteControlElement, createTripControlsTemplate(), TemplatePosition.BEFORE_END);
+render(siteControlElement, generateTripFilterForm(), TemplatePosition.BEFORE_END);
 
 updateTripEvents(eventMockData);
 updateTripTotalSum();
