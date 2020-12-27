@@ -1,5 +1,5 @@
-import {getRandomInt, getRandomPositiveInt, getArrayRandomElement, getRandomBoolean, getRandomProperty, generateTemplatesFromData} from "../utils/utils.js";
-import {createEventOfferTemplate} from "../view/trip-event/event-offer.js";
+import {getRandomInt, getRandomPositiveInt, getArrayRandomElement, getRandomBoolean, getRandomProperty, generateTemplatesUsingClass} from "../utils/utils.js";
+import EventOffer from "../view/trip-event/event-offer.js";
 import dayjs from 'dayjs';
 
 const OFFERS_COUNT = 15;
@@ -115,7 +115,7 @@ const generateMockTripEvent = () => {
   const eventPrice = getRandomInt(prices.min, prices.max);
   const allOffers = getRandomOffer();
   const totalTripPrice = allOffers.filter((offer) => offer.isChecked === `checked`).reduce((sum, elem) => sum + elem.price, 0) + eventPrice;
-  const checkedOffersList = generateTemplatesFromData(allOffers.filter((offer) => offer.isChecked), createEventOfferTemplate);
+  const checkedOffersList = generateTemplatesUsingClass(allOffers.filter((offer) => offer.isChecked), EventOffer);
 
   return {
     description: getRandomDescription(),

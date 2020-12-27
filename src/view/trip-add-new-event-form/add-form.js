@@ -1,4 +1,4 @@
-export const createAddFormTemplate = (template) => {
+const createAddFormTemplate = (template) => {
   return `<form class="event event--edit" action="#" method="post">
   <header class="event__header">
     ${template.types}
@@ -42,3 +42,26 @@ export const createAddFormTemplate = (template) => {
   </section>
 </form>`;
 };
+
+export default class AddForm {
+  constructor(template) {
+    this._element = null;
+    this._template = template;
+  }
+
+  getTemplate() {
+    return createAddFormTemplate(this._template);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = this.getTemplate();
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

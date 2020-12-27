@@ -9,17 +9,6 @@ export const RenderPosition = {
   BEFORE_END: `beforeend`,
 };
 
-export const renderElement = (container, element, place) => {
-  switch (place) {
-    case RenderPosition.AFTERBEGIN:
-      container.prepend(element);
-      break;
-    case RenderPosition.BEFOREEND:
-      container.append(element);
-      break;
-  }
-};
-
 export const renderTemplate = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
@@ -44,6 +33,20 @@ export const renderCollectionUsingCallback = (data, callBack) => {
   return fragment;
 };
 
+export const renderCollectionUsingClass = (data, Class) => {
+  const fragment = createContainerElement(`div`);
+  for (let i = 0; i < data.length; i++) {
+    const element = new Class(data[i]).getElement();
+    renderTemplate(fragment, element, RenderPosition.BEFORE_END);
+  }
+  return fragment;
+};
+
+export const generateTemplatesUsingClass = (data, Class) => {
+  const fragment = renderCollectionUsingClass(data, Class);
+  return fragment.innerHTML;
+};
+
 export const getRandomInt = (minValue, maxValue) => Math.floor(minValue + Math.random() * (maxValue - minValue + 1));
 
 export const getRandomBoolean = () => !!getRandomInt(0, 1);
@@ -62,4 +65,3 @@ export const getRandomProperty = function (obj) {
   const keys = Object.keys(obj);
   return obj[keys[keys.length * Math.random() << 0]];
 };
-

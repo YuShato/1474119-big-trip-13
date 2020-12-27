@@ -1,5 +1,5 @@
 import {RenderPosition, renderTemplate, createContainerElement} from "../../utils/utils.js";
-import {createTripPointTemplate} from "./point.js";
+import TripPoint from "./point.js";
 
 
 const pageMainElement = document.querySelector(`.page-main`);
@@ -16,7 +16,7 @@ const generateEvents = (array) => {
 
 const generateTripPoints = (array, i) => {
   const fragment = createContainerElement(`div`);
-  renderTemplate(fragment, createTripPointTemplate(array[i]), RenderPosition.BEFORE_END);
+  renderTemplate(fragment, new TripPoint(array[i]).getElement(), RenderPosition.BEFORE_END);
   return fragment.innerHTML;
 };
 

@@ -1,5 +1,5 @@
-import {createTripFiltersTemplate} from "./trip-filters-filter-template";
-import {createTripFilterTemplate} from "./trip-filters-template";
+import TripFilters from "./trip-filters-filter-template";
+import TripFilter from "./trip-filters-template";
 
 const FILTERS = [
   {
@@ -17,8 +17,8 @@ const FILTERS = [
 ];
 
 const generateTripFilterForm = () => {
-  const filters = FILTERS.map((filter) => createTripFiltersTemplate(filter)).join(``);
-  return createTripFilterTemplate(filters);
+  const filters = FILTERS.map((filter) => new TripFilters(filter).getElement()).join(``);
+  return new TripFilter(filters).getElement();
 };
 
 export {

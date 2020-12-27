@@ -1,12 +1,14 @@
 import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate} from "../../utils/utils.js";
-const createTripPointTemplate = ({
-  city,
-  tripEvent,
-  totalSum,
-  startTime,
-  endTime,
-  checkedOffers
-}) => {
+
+const createTripPointTemplate = (offer) => {
+  const {
+    city,
+    tripEvent,
+    totalSum,
+    startTime,
+    endTime,
+    checkedOffers
+  } = offer;
   return `<li class="trip-events__item">
   <div class="event">
     <time class="event__date" datetime="${startTime}">${humanizeTaskDueDate(startTime)}</time>
@@ -44,5 +46,25 @@ const createTripPointTemplate = ({
 </li>`;
 };
 
-export {
-  createTripPointTemplate};
+export default class TripPoint {
+  constructor(offer) {
+    this._element = null;
+    this._offer = offer;
+  }
+
+  getTemplate() {
+    return createTripPointTemplate(this._offer);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = this.getTemplate();
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

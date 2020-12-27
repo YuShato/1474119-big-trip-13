@@ -1,15 +1,15 @@
 import dayjs from 'dayjs';
-import {generateTemplatesFromData} from "../../utils/utils.js";
-import {createTypeInputTemplate} from "./type-input.js";
+import {generateTemplatesUsingClass} from "../../utils/utils.js";
+import TypeInput from "./type-input.js";
 import {getRandomDescription, getRandomOffer} from "../../mock/data.js";
-import {createTypesWrapperTemplate} from "./types.js";
-import {createCityOptionTemplate} from "./option-city.js";
-import {createTimeInputTemplate} from "./time-input.js";
-import {createPriceFieldTemplate} from "./price-field.js";
-import {createFormButtonTemplate} from "./form-button.js";
-import {createOfferTemplate} from "./offer.js";
+import TypesWrapper from "./types.js";
+import CityOption from "./option-city.js";
+import TimeInput from "./time-input.js";
+import EventPrice from "./price-field.js";
+import FormButton from "./form-button.js";
+import Offer from "./offer.js";
 import {getRandomImg} from "../../mock/data.js";
-import {createFormPhotoTemplate} from "./photo.js";
+import FormPhoto from "./photo.js";
 import {DATE_FORMAT} from "../../const.js";
 
 const eventTimeLabels = [
@@ -80,19 +80,19 @@ const formButtons = [{
   type: `reset`
 }];
 
-const createEventTypesListTemplate = () => createTypesWrapperTemplate(generateTemplatesFromData(eventTypes, createTypeInputTemplate));
+const createEventTypesListTemplate = () => new TypesWrapper(generateTemplatesUsingClass(eventTypes, TypeInput)).getElement();
 
 const generateOffersData = () => Array.from(new Set(getRandomOffer()));
 
-const generateCityOptionHtml = () => generateTemplatesFromData(optionCities, createCityOptionTemplate);
+const generateCityOptionHtml = () => generateTemplatesUsingClass(optionCities, CityOption);
 
-const generateTimeInputsHtml = () => generateTemplatesFromData(eventTimeLabels, createTimeInputTemplate);
+const generateTimeInputsHtml = () => generateTemplatesUsingClass(eventTimeLabels, TimeInput);
 
-const generateButtonsHtml = () => generateTemplatesFromData(formButtons, createFormButtonTemplate);
+const generateButtonsHtml = () => generateTemplatesUsingClass(formButtons, FormButton);
 
-const generateOfferHtml = () => generateTemplatesFromData(generateOffersData(), createOfferTemplate);
+const generateOfferHtml = () => generateTemplatesUsingClass(generateOffersData(), Offer);
 
-const generateEventPhotosHtml = () => generateTemplatesFromData(getRandomImg(), createFormPhotoTemplate);
+const generateEventPhotosHtml = () => generateTemplatesUsingClass(getRandomImg(), FormPhoto);
 
 const addFormPartsTemplate = () => {
   return {
@@ -100,12 +100,13 @@ const addFormPartsTemplate = () => {
     offers: generateOfferHtml(),
     cities: generateCityOptionHtml(),
     time: generateTimeInputsHtml(),
-    price: createPriceFieldTemplate(),
+    price: new EventPrice().getElement(),
     buttons: generateButtonsHtml(),
     description: getRandomDescription(),
     photos: generateEventPhotosHtml()
   };
 };
+
 
 export {
   addFormPartsTemplate

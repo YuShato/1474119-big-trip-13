@@ -1,4 +1,4 @@
-export const createTypesWrapperTemplate = (eventTypesHtml) => {
+const createTypesWrapperTemplate = (eventTypesHtml) => {
   return `<div class="event__type-wrapper">
   <label class="event__type  event__type-btn" for="event-type-toggle-1">
     <span class="visually-hidden">Choose event type</span>
@@ -15,3 +15,25 @@ export const createTypesWrapperTemplate = (eventTypesHtml) => {
 </div>`;
 };
 
+export default class TypesWrapper {
+  constructor(eventTypesHtml) {
+    this._element = null;
+    this._eventTypesHtml = eventTypesHtml;
+  }
+
+  getTemplate() {
+    return createTypesWrapperTemplate(this._eventTypesHtml);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = this.getTemplate();
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
