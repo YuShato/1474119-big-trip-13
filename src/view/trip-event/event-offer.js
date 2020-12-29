@@ -1,3 +1,5 @@
+import {createElement} from "../../utils/utils.js";
+
 const createEventOfferTemplate = (eventData) => {
   return `<li class="event__offer">
     <span class="event__offer-title">${eventData.name}</span>
@@ -18,7 +20,7 @@ export default class EventOffer {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

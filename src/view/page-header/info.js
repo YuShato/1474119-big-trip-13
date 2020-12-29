@@ -1,3 +1,5 @@
+import {createElement} from "../../utils/utils.js";
+
 const createTripInfoTemplate = (cities) => {
   return `<section class="trip-main__trip-info  trip-info">
   <div class="trip-info__main">
@@ -22,7 +24,7 @@ export default class TripInfo {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

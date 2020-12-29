@@ -1,4 +1,4 @@
-import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate} from "../../utils/utils.js";
+import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate, createElement} from "../../utils/utils.js";
 
 const createTripPointTemplate = (offer) => {
   const {
@@ -58,7 +58,7 @@ export default class TripPoint {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

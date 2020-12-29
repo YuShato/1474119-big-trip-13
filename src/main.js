@@ -1,6 +1,6 @@
 import TripInfo from "./view/page-header/info.js";
 import SiteMenuControls from "./view/page-header/controls.js";
-import {RenderPosition, renderTemplate} from "./utils/utils.js";
+import {RenderPosition, render} from "./utils/utils.js";
 import {getAllEventsSum, eventMockData, headerCities} from "./mock/data.js";
 import {updateTripEvents, onChangeTimeFilter} from "./utils/filter.js";
 import {generateTripFilterForm} from "./view/trip-filters/trip-filters.js";
@@ -15,7 +15,7 @@ const siteEventElement = pageMainElement.querySelector(`.trip-events`);
 
 const renderAddForm = () => {
   const tripEventsListElement = siteEventElement.querySelector(`.trip-events__list`);
-  renderTemplate(tripEventsListElement, new AddForm(addFormPartsTemplate()).getElement(), RenderPosition.AFTER_BEGIN);
+  render(tripEventsListElement, new AddForm(addFormPartsTemplate()).getElement(), RenderPosition.AFTER_BEGIN);
 };
 
 const removeAddForm = () => {
@@ -43,11 +43,10 @@ newEventBtn.addEventListener(`keydown`, (evt) => {
   }
 });
 
-renderTemplate(siteMainElement, new TripInfo(headerCities).getElement(), RenderPosition.AFTER_BEGIN);
-renderTemplate(siteControlElement, new SiteMenuControls().getElement(), RenderPosition.BEFORE_END);
-renderTemplate(siteControlElement, generateTripFilterForm(), RenderPosition.BEFORE_END);
+render(siteMainElement, new TripInfo(headerCities).getElement(), RenderPosition.AFTER_BEGIN);
+render(siteControlElement, new SiteMenuControls().getElement(), RenderPosition.BEFORE_END);
+render(siteControlElement, generateTripFilterForm(), RenderPosition.BEFORE_END);
 
 updateTripEvents(eventMockData);
 updateTripTotalSum();
 onChangeTimeFilter();
-

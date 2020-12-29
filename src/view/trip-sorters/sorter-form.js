@@ -1,8 +1,13 @@
+import {createElement} from "../../utils/utils.js";
+
 const createSorterFormTemplate = (sorterTemplatesHtml) => {
-  return `<h2 class="visually-hidden">Trip events</h2>
-   <form class="trip-events__trip-sort  trip-sort" action="#" method="get">
-    ${sorterTemplatesHtml}
-   </form>`;
+  return `
+    <div>
+     <h2 class="visually-hidden">Trip events</h2>
+     <form class="trip-events__trip-sort  trip-sort" action="#" method="get">
+      ${sorterTemplatesHtml}
+     </form>
+    </div>`;
 };
 
 export default class SorterForm {
@@ -17,7 +22,7 @@ export default class SorterForm {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

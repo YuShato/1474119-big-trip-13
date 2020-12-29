@@ -1,3 +1,5 @@
+import {createElement} from "../../utils/utils.js";
+
 const createTypeInputTemplate = (dataElement) => {
   const nameToLowerCase = dataElement.name.toLowerCase();
   return `<div class="event__type-item">
@@ -18,7 +20,7 @@ export default class TypeInput {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

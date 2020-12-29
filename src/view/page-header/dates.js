@@ -1,3 +1,5 @@
+import {createElement} from "../../utils/utils.js";
+
 const createTripDatesTemplate = (dates) => `<p class="trip-info__dates">${dates.min}&nbsp;&mdash;&nbsp;${dates.max}</p>`;
 
 export default class TripDates {
@@ -12,7 +14,7 @@ export default class TripDates {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

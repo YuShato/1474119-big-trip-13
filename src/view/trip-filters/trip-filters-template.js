@@ -1,3 +1,5 @@
+import {createElement} from "../../utils/utils.js";
+
 const createTripFilterTemplate = (filtersHtml) => {
   return `<form class="trip-filters" action="#" method="get">
    ${filtersHtml}
@@ -17,7 +19,7 @@ export default class TripFilter {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

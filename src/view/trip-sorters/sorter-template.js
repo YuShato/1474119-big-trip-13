@@ -1,6 +1,6 @@
 import Sorter from "./sorter.js";
 import SorterForm from "./sorter-form.js";
-import {RenderPosition, renderTemplate, generateTemplatesUsingClass} from "../../utils/utils.js";
+import {RenderPosition, render, generateTemplatesUsingClass} from "../../utils/utils.js";
 
 const pageMainElement = document.querySelector(`.page-main`);
 
@@ -36,7 +36,7 @@ const generateSorterTemplatesHtml = () => generateTemplatesUsingClass(sorters, S
 
 const renderSorterForm = () => {
   const tripEventsElement = pageMainElement.querySelector(`.trip-events`);
-  renderTemplate(tripEventsElement, new SorterForm(generateSorterTemplatesHtml()).getElement(), RenderPosition.AFTER_BEGIN);
+  render(tripEventsElement, new SorterForm(generateSorterTemplatesHtml()).getElement(), RenderPosition.AFTER_BEGIN);
   return tripEventsElement;
 };
 

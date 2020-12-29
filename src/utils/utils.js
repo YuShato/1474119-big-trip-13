@@ -5,17 +5,12 @@ dayjs.extend(duration);
 
 export const RenderPosition = {
   AFTER_BEGIN: `afterbegin`,
-  AFTER_END: `afterend`,
   BEFORE_END: `beforeend`,
-};
-
-export const renderTemplate = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
 };
 
 export const generateTemplatesFromData = (data, callBack) => {
   const fragment = renderCollectionUsingCallback(data, callBack);
-  return fragment.innerHTML;
+  return fragment;
 };
 
 export const createContainerElement = (elem, className) => {
@@ -25,10 +20,10 @@ export const createContainerElement = (elem, className) => {
 };
 
 export const renderCollectionUsingCallback = (data, callBack) => {
-  const fragment = createContainerElement(`div`);
+  const fragment = document.createDocumentFragment();
   for (let i = 0; i < data.length; i++) {
     const element = callBack(data[i]);
-    renderTemplate(fragment, element, RenderPosition.BEFORE_END);
+    render(fragment, element, RenderPosition.BEFORE_END);
   }
   return fragment;
 };
@@ -37,7 +32,7 @@ export const renderCollectionUsingClass = (data, Class) => {
   const fragment = createContainerElement(`div`);
   for (let i = 0; i < data.length; i++) {
     const element = new Class(data[i]).getElement();
-    renderTemplate(fragment, element, RenderPosition.BEFORE_END);
+    render(fragment, element, RenderPosition.BEFORE_END);
   }
   return fragment;
 };
@@ -64,4 +59,22 @@ export const timeGap = (startTime, endTime) => dayjs.duration(endTime.diff(start
 export const getRandomProperty = function (obj) {
   const keys = Object.keys(obj);
   return obj[keys[keys.length * Math.random() << 0]];
+};
+
+export const createElement = (template) => {
+  const container = document.createElement(`div`);
+  container.innerHTML = template;
+
+  return container.firstChild;
+};
+
+export const render = (container, element, place) => {
+  switch (place) {
+    case RenderPosition.AFTER_BEGIN:
+      container.prepend(element);
+      break;
+    case RenderPosition.BEFORE_END:
+      container.append(element);
+      break;
+  }
 };

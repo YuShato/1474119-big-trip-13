@@ -1,3 +1,5 @@
+import {createElement} from "../../utils/utils.js";
+
 const createFormButtonTemplate = (buttonElement) => `<button class="${buttonElement.class}" type="${buttonElement.type}">${buttonElement.name}</button>`;
 
 export default class FormButton {
@@ -12,7 +14,7 @@ export default class FormButton {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

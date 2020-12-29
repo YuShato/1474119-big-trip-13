@@ -1,3 +1,5 @@
+import {createElement} from "../../utils/utils.js";
+
 const createFormPhotoTemplate = (src) => `<img class="event__photo" src="${src}" alt="Event photo">`;
 
 export default class FormPhoto {
@@ -12,7 +14,7 @@ export default class FormPhoto {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

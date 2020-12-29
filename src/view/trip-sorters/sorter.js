@@ -1,3 +1,5 @@
+import {createElement} from "../../utils/utils.js";
+
 const createSorterTemplate = (eventData) => {
   const nameLowerCase = eventData.name.toLowerCase();
   return `<div class="trip-sort__item  trip-sort__item--${nameLowerCase}">
@@ -18,7 +20,7 @@ export default class Sorter {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

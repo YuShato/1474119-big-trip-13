@@ -111,4 +111,3 @@ const addFormPartsTemplate = () => {
 export {
   addFormPartsTemplate
 };
-

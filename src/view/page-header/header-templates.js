@@ -1,4 +1,4 @@
-import {RenderPosition, renderTemplate} from "../../utils/utils.js";
+import {RenderPosition, render} from "../../utils/utils.js";
 import TripDates from "./dates.js";
 import {getDurationOfTravel} from "../../utils/filter";
 
@@ -8,7 +8,7 @@ const updateTripDates = (dates) => {
   if (createdDatesElement) {
     tripInfoElement.removeChild(createdDatesElement);
   }
-  renderTemplate(tripInfoElement, new TripDates(getDurationOfTravel(dates)).getElement(), RenderPosition.BEFORE_END);
+  render(tripInfoElement, new TripDates(getDurationOfTravel(dates)).getElement(), RenderPosition.BEFORE_END);
 };
 
 export {

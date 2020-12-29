@@ -1,3 +1,5 @@
+import {createElement} from "../../utils/utils.js";
+
 const createAddFormTemplate = (template) => {
   return `<form class="event event--edit" action="#" method="post">
   <header class="event__header">
@@ -55,7 +57,7 @@ export default class AddForm {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

@@ -1,9 +1,13 @@
+import {createElement} from "../../utils/utils.js";
+
 const createTripControlsTemplate = () => {
-  return `<h2 class="visually-hidden">Switch trip view</h2>
-  <nav class="trip-controls__trip-tabs  trip-tabs">
-  <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
-  <a class="trip-tabs__btn" href="#">Stats</a>
-</nav>`;
+  return `<div>
+    <h2 class="visually-hidden">Switch trip view</h2>
+    <nav class="trip-controls__trip-tabs  trip-tabs">
+      <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
+      <a class="trip-tabs__btn" href="#">Stats</a>
+    </nav>
+  </div>`;
 };
 
 export default class SiteMenuControls {
@@ -17,7 +21,7 @@ export default class SiteMenuControls {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

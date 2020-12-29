@@ -1,3 +1,5 @@
+import {createElement} from "../../utils/utils.js";
+
 const createOfferTemplate = (dataElement) => {
   return `<div class="event__offer-selector">
       <input class="event__offer-checkbox  visually-hidden" id="${dataElement.id}" type="checkbox" name="${dataElement.idName}" ${dataElement.isChecked ? `checked` : ``}>
@@ -22,7 +24,7 @@ export default class Offer {
 
   getElement() {
     if (!this._element) {
-      this._element = this.getTemplate();
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;
