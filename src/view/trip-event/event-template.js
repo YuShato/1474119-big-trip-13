@@ -1,5 +1,6 @@
 import {RenderPosition, render, createContainerElement} from "../../utils/utils.js";
 import TripPoint from "./point.js";
+import EmptyContainer from "./no-events.js";
 
 
 const pageMainElement = document.querySelector(`.page-main`);
