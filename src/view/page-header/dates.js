@@ -1,26 +1,14 @@
-import {createElement} from "../../utils/utils.js";
+import Abstract from "../abstract.js";
 
 const createTripDatesTemplate = (dates) => `<p class="trip-info__dates">${dates.min}&nbsp;&mdash;&nbsp;${dates.max}</p>`;
 
-export default class TripDates {
+export default class TripDates extends Abstract {
   constructor(dates) {
-    this._element = null;
+    super();
     this._dates = dates;
   }
 
   getTemplate() {
     return createTripDatesTemplate(this._dates);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

@@ -1,4 +1,4 @@
-import {createElement} from "../../utils/utils.js";
+import Abstract from "../abstract.js";
 
 const createAddFormTemplate = (template) => {
   return `<form class="event event--edit" action="#" method="post">
@@ -45,25 +45,13 @@ const createAddFormTemplate = (template) => {
 </form>`;
 };
 
-export default class AddForm {
+export default class AddForm extends Abstract {
   constructor(template) {
-    this._element = null;
+    super();
     this._template = template;
   }
 
   getTemplate() {
     return createAddFormTemplate(this._template);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

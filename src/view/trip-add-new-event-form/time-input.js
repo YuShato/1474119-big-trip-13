@@ -1,4 +1,4 @@
-import {createElement} from "../../utils/utils.js";
+import Abstract from "../abstract.js";
 
 const createTimeInputTemplate = (dataElement) => {
   return `<div>
@@ -7,25 +7,13 @@ const createTimeInputTemplate = (dataElement) => {
    </div>`;
 };
 
-export default class TimeInput {
+export default class TimeInput extends Abstract {
   constructor(dataElement) {
-    this._element = null;
+    super();
     this._dataElement = dataElement;
   }
 
   getTemplate() {
     return createTimeInputTemplate(this._dataElement);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

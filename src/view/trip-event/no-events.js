@@ -1,33 +1,9 @@
-import {createElement} from "../../utils/utils.js";
+import Abstract from "../abstract.js";
 
-const createEmptyBodyTemplate = () => {
-  return `
-    <div class="page-body__container">
-      <section class="trip-events">
-        <h2 class="visually-hidden">Trip events</h2>
-        <p class="trip-events__msg">Click New Event to create your first point</p>
-      </section>
-    </div>`;
-};
+const createEmptyBodyTemplate = () => `<p class="trip-events__msg">Click New Event to create your first point</p>`;
 
-export default class EmptyContainer {
-  constructor() {
-    this._element = null;
-  }
-
+export default class EmptyContainer extends Abstract {
   getTemplate() {
     return createEmptyBodyTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

@@ -1,4 +1,4 @@
-import {createElement} from "../../utils/utils.js";
+import Abstract from "../abstract.js";
 
 const createSorterFormTemplate = (sorterTemplatesHtml) => {
   return `
@@ -10,25 +10,13 @@ const createSorterFormTemplate = (sorterTemplatesHtml) => {
     </div>`;
 };
 
-export default class SorterForm {
+export default class SorterForm extends Abstract {
   constructor(sorterTemplatesHtml) {
-    this._element = null;
+    super();
     this._sorterTemplatesHtml = sorterTemplatesHtml;
   }
 
   getTemplate() {
     return createSorterFormTemplate(this._sorterTemplatesHtml);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

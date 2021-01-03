@@ -1,4 +1,4 @@
-import {createElement} from "../../utils/utils.js";
+import Abstract from "../abstract.js";
 
 const createEventOfferTemplate = (eventData) => {
   return `<li class="event__offer">
@@ -8,25 +8,13 @@ const createEventOfferTemplate = (eventData) => {
   </li>`;
 };
 
-export default class EventOffer {
+export default class EventOffer extends Abstract {
   constructor(eventData) {
-    this._element = null;
+    super();
     this._eventData = eventData;
   }
 
   getTemplate() {
     return createEventOfferTemplate(this._eventData);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

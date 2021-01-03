@@ -1,3 +1,5 @@
+import Abstract from "../abstract.js";
+
 const createPriceFieldTemplate = () => {
   return `<div class="event__field-group  event__field-group--price">
   <label class="event__label" for="event-price-1">
@@ -8,24 +10,8 @@ const createPriceFieldTemplate = () => {
 </div>`;
 };
 
-export default class EventPrice {
-  constructor() {
-    this._element = null;
-  }
-
+export default class EventPrice extends Abstract {
   getTemplate() {
     return createPriceFieldTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = this.getTemplate();
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

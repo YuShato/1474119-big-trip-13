@@ -1,26 +1,14 @@
-import {createElement} from "../../utils/utils.js";
+import Abstract from "../abstract.js";
 
 const createFormPhotoTemplate = (src) => `<img class="event__photo" src="${src}" alt="Event photo">`;
 
-export default class FormPhoto {
+export default class FormPhoto extends Abstract {
   constructor(src) {
-    this._element = null;
+    super();
     this._src = src;
   }
 
   getTemplate() {
     return createFormPhotoTemplate(this._src);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

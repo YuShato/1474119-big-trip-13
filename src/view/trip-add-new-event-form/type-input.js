@@ -1,4 +1,4 @@
-import {createElement} from "../../utils/utils.js";
+import Abstract from "../abstract.js";
 
 const createTypeInputTemplate = (dataElement) => {
   const nameToLowerCase = dataElement.name.toLowerCase();
@@ -8,25 +8,13 @@ const createTypeInputTemplate = (dataElement) => {
 </div>`;
 };
 
-export default class TypeInput {
+export default class TypeInput extends Abstract {
   constructor(dataElement) {
-    this._element = null;
+    super();
     this._dataElement = dataElement;
   }
 
   getTemplate() {
     return createTypeInputTemplate(this._dataElement);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

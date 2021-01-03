@@ -100,7 +100,7 @@ const addFormPartsTemplate = () => {
     offers: generateOfferHtml(),
     cities: generateCityOptionHtml(),
     time: generateTimeInputsHtml(),
-    price: new EventPrice().getElement(),
+    price: new EventPrice().getTemplate(),
     buttons: generateButtonsHtml(),
     description: getRandomDescription(),
     photos: generateEventPhotosHtml()

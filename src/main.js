@@ -50,3 +50,4 @@ render(siteControlElement, generateTripFilterForm(), RenderPosition.BEFORE_END);
 updateTripEvents(eventMockData);
 updateTripTotalSum();
 onChangeTimeFilter();
+

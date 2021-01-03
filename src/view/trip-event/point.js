@@ -1,4 +1,5 @@
-import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate, createElement} from "../../utils/utils.js";
+import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate} from "../../utils/utils.js";
+import Abstract from "../abstract.js";
 
 const createTripPointTemplate = (offer) => {
   const {
@@ -46,25 +47,13 @@ const createTripPointTemplate = (offer) => {
 </li>`;
 };
 
-export default class TripPoint {
+export default class TripPoint extends Abstract {
   constructor(offer) {
-    this._element = null;
+    super();
     this._offer = offer;
   }
 
   getTemplate() {
     return createTripPointTemplate(this._offer);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

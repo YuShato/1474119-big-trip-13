@@ -1,4 +1,4 @@
-import {createElement} from "../../utils/utils.js";
+import Abstract from "../abstract.js";
 
 const createSorterTemplate = (eventData) => {
   const nameLowerCase = eventData.name.toLowerCase();
@@ -8,25 +8,13 @@ const createSorterTemplate = (eventData) => {
 </div>`;
 };
 
-export default class Sorter {
+export default class Sorter extends Abstract {
   constructor(eventData) {
-    this._element = null;
+    super();
     this._eventData = eventData;
   }
 
   getTemplate() {
     return createSorterTemplate(this._eventData);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
