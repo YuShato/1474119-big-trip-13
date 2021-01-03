@@ -1,12 +1,8 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import {render, RenderPosition} from "../utils/render.js";
 
 dayjs.extend(duration);
-
-export const RenderPosition = {
-  AFTER_BEGIN: `afterbegin`,
-  BEFORE_END: `beforeend`,
-};
 
 export const generateTemplatesFromData = (data, callBack) => {
   const fragment = renderCollectionUsingCallback(data, callBack);
@@ -68,13 +64,4 @@ export const createElement = (template) => {
   return container.firstChild;
 };
 
-export const render = (container, element, place) => {
-  switch (place) {
-    case RenderPosition.AFTER_BEGIN:
-      container.prepend(element);
-      break;
-    case RenderPosition.BEFORE_END:
-      container.append(element);
-      break;
-  }
-};
+

@@ -1,4 +1,5 @@
-import {RenderPosition, render, createContainerElement} from "../../utils/utils.js";
+import {createContainerElement} from "../../utils/utils.js";
+import {RenderPosition, render} from "../../utils/render.js";
 import TripPoint from "./point.js";
 
 const pageMainElement = document.querySelector(`.page-main`);
@@ -15,7 +16,7 @@ const generateEvents = (array) => {
 
 const generateTripPoints = (array, i) => {
   const fragment = document.createDocumentFragment();
-  render(fragment, new TripPoint(array[i]).getElement(), RenderPosition.BEFORE_END);
+  render(fragment, new TripPoint(array[i]), RenderPosition.BEFORE_END);
   return fragment;
 };
 

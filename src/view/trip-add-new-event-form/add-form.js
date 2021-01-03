@@ -1,4 +1,5 @@
 import Abstract from "../abstract.js";
+import {render, RenderPosition, remove} from "../../utils/render.js";
 
 const createAddFormTemplate = (template) => {
   return `<form class="event event--edit" action="#" method="post">
@@ -49,9 +50,18 @@ export default class AddForm extends Abstract {
   constructor(template) {
     super();
     this._template = template;
+    this._eventsListElement = document.querySelector(`.trip-events__list`);
   }
 
   getTemplate() {
     return createAddFormTemplate(this._template);
+  }
+
+  remove() {
+    remove(this);
+  }
+
+  render() {
+    render(this._eventsListElement, this, RenderPosition.AFTER_BEGIN);
   }
 }

@@ -4,7 +4,7 @@ import {updateTripDates} from "../view/page-header/header-templates.js";
 import {generateEvents} from "../view/trip-event/event-template.js";
 import EmptyContainer from "../view/trip-event/no-events.js";
 import {renderSorterForm} from "../view/trip-sorters/sorter-template.js";
-import {render, RenderPosition} from "../utils/utils.js";
+import {render, RenderPosition} from "../utils/render.js";
 
 const siteEventElement = document.querySelector(`.trip-events`);
 
@@ -24,7 +24,7 @@ const getDurationOfTravel = (dates) => {
 
 const updateTripEvents = (data) => {
   if (data.length === 0 || !data) {
-    render(siteEventElement, new EmptyContainer().getElement(), RenderPosition.BEFORE_END);
+    render(siteEventElement, new EmptyContainer(), RenderPosition.BEFORE_END);
   } else {
     render(siteEventElement, generateEvents(data), RenderPosition.BEFORE_END);
   }
