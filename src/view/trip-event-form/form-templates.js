@@ -8,24 +8,23 @@ import TimeInput from "./time-input.js";
 import EventPrice from "./price-field.js";
 import FormButton from "./form-button.js";
 import Offer from "./offer.js";
-import {getRandomImg} from "../../mock/data.js";
+import {getRandomImg, cities} from "../../mock/data.js";
 import FormPhoto from "./photo.js";
-import {DATE_FORMAT} from "../../const.js";
+import {FULL_DATE_FORMAT} from "../../const.js";
+import {humanizeTimeForForm} from "../../utils/utils.js";
 
 const eventTimeLabels = [
   {
     name: `From`,
     id: `event-start-time-1`,
-    placeholder: dayjs().format(DATE_FORMAT)
+    placeholder: dayjs().format(FULL_DATE_FORMAT)
   },
   {
     name: `To`,
     id: `event-end-time-1`,
-    placeholder: dayjs().format(DATE_FORMAT)
+    placeholder: dayjs().format(FULL_DATE_FORMAT)
   }
 ];
-
-const optionCities = [`Amsterdam`, `Geneva`, `Chamonix`];
 
 const eventTypes = [
   {
@@ -84,29 +83,49 @@ const createEventTypesListTemplate = () => new TypesWrapper(generateTemplatesUsi
 
 const generateOffersData = () => Array.from(new Set(getRandomOffer()));
 
-const generateCityOptionHtml = () => generateTemplatesUsingClass(optionCities, CityOption);
+const generateCityOptionHtml = () => generateTemplatesUsingClass(cities, CityOption);
 
 const generateTimeInputsHtml = () => generateTemplatesUsingClass(eventTimeLabels, TimeInput);
 
 const generateButtonsHtml = () => generateTemplatesUsingClass(formButtons, FormButton);
 
-const generateOfferHtml = () => generateTemplatesUsingClass(generateOffersData(), Offer);
+const generateOfferHtml = (offersData) => generateTemplatesUsingClass(offersData, Offer);
 
-const generateEventPhotosHtml = () => generateTemplatesUsingClass(getRandomImg(), FormPhoto);
+const generateEventPhotosHtml = (photosData) => generateTemplatesUsingClass(photosData, FormPhoto);
 
 const addFormPartsTemplate = () => {
+  const offersData = generateOffersData();
+  const photosData = getRandomImg();
   return {
     types: createEventTypesListTemplate(),
-    offers: generateOfferHtml(),
+    offers: generateOfferHtml(offersData),
     cities: generateCityOptionHtml(),
     time: generateTimeInputsHtml(),
     price: new EventPrice().getTemplate(),
     buttons: generateButtonsHtml(),
     description: getRandomDescription(),
-    photos: generateEventPhotosHtml()
+    photos: generateEventPhotosHtml(photosData)
+  };
+};
+
+const editFormPartsTemplate = (point) => {
+  return {
+    id: point.id,
+    city: point.city,
+    tripEvent: point.tripEvent,
+    startTime: humanizeTimeForForm(point.startTime),
+    endTime: humanizeTimeForForm(point.endTime),
+    types: generateTemplatesUsingClass(eventTypes, TypeInput),
+    offers: generateOfferHtml(point.offers),
+    cities: generateCityOptionHtml(),
+    time: generateTimeInputsHtml(),
+    price: point.totalSum,
+    description: point.description,
+    photos: generateEventPhotosHtml(point.photos)
   };
 };
 
 export {
-  addFormPartsTemplate
+  addFormPartsTemplate,
+  editFormPartsTemplate
 };

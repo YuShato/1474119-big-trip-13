@@ -4,8 +4,8 @@ import {RenderPosition, render} from "./utils/render.js";
 import {getAllEventsSum, eventMockData, headerCities} from "./mock/data.js";
 import {updateTripEvents, onChangeTimeFilter} from "./utils/filter.js";
 import {generateTripFilterForm} from "./view/trip-filters/trip-filters.js";
-import AddForm from "./view/trip-add-new-event-form/add-form";
-import {addFormPartsTemplate} from "./view/trip-add-new-event-form/add-form-template.js";
+import AddForm from "./view/trip-event-form/add-form";
+import {addFormPartsTemplate} from "./view/trip-event-form/form-templates.js";
 
 const pageMainElement = document.querySelector(`.page-body__page-main`);
 const siteMainElement = document.querySelector(`.trip-main`);
@@ -44,4 +44,3 @@ render(siteControlElement, generateTripFilterForm(), RenderPosition.BEFORE_END);
 updateTripEvents(eventMockData);
 updateTripTotalSum();
 onChangeTimeFilter();
-

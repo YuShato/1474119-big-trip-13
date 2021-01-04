@@ -51,6 +51,19 @@ export default class TripPoint extends Abstract {
   constructor(offer) {
     super();
     this._offer = offer;
+    this._clickArrowHandler = this._clickArrowHandler.bind(this);
+  }
+
+  _clickArrowHandler(evt) {
+    evt.preventDefault();
+    this._cb.click();
+  }
+
+  setClickArrowHandler(cb) {
+    this._cb.click = cb;
+    this.getElement()
+      .querySelector(`.event__rollup-btn`)
+      .addEventListener(`click`, this._clickArrowHandler);
   }
 
   getTemplate() {

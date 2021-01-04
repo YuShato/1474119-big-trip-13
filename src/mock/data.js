@@ -1,6 +1,8 @@
-import {getRandomInt, getRandomPositiveInt, getArrayRandomElement, getRandomBoolean, getRandomProperty, generateTemplatesUsingClass} from "../utils/utils.js";
+import {generateTemplatesUsingClass} from "../utils/utils.js";
+import {getRandomInt, getRandomPositiveInt, getArrayRandomElement, getRandomBoolean, getRandomProperty} from "../utils/randomizer.js";
 import EventOffer from "../view/trip-event/event-offer.js";
 import dayjs from 'dayjs';
+import {nanoid} from 'nanoid';
 
 const OFFERS_COUNT = 15;
 
@@ -118,6 +120,7 @@ const generateMockTripEvent = () => {
   const checkedOffersList = generateTemplatesUsingClass(allOffers.filter((offer) => offer.isChecked), EventOffer);
 
   return {
+    id: nanoid(10),
     description: getRandomDescription(),
     offers: allOffers,
     city: generateCity(),
@@ -141,5 +144,6 @@ export {
   getAllEventsSum,
   eventMockData,
   OFFERS_COUNT,
-  headerCities
+  headerCities,
+  cities
 };
