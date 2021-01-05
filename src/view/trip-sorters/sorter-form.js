@@ -1,13 +1,10 @@
 import Abstract from "../abstract.js";
 
 const createSorterFormTemplate = (sorterTemplatesHtml) => {
-  return `
-    <div>
+  return `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
      <h2 class="visually-hidden">Trip events</h2>
-     <form class="trip-events__trip-sort  trip-sort" action="#" method="get">
       ${sorterTemplatesHtml}
-     </form>
-    </div>`;
+     </form>`;
 };
 
 export default class SorterForm extends Abstract {

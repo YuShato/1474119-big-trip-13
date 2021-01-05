@@ -1,5 +1,4 @@
 import Abstract from "../abstract.js";
-import {render, RenderPosition, remove} from "../../utils/render.js";
 
 const createAddFormTemplate = (template) => {
   return `<form class="event event--edit" action="#" method="post">
@@ -50,9 +49,7 @@ export default class AddForm extends Abstract {
   constructor(template) {
     super();
     this._template = template;
-    this._eventsListElement = document.querySelector(`.trip-events__list`);
     this._submitHandler = this._submitHandler.bind(this);
-    this._clickArrowHandler = this._clickArrowHandler.bind(this);
   }
 
   _submitHandler(evt) {
@@ -60,30 +57,12 @@ export default class AddForm extends Abstract {
     this._cb.submit();
   }
 
-  _clickArrowHandler(evt) {
-    evt.preventDefault();
-    this._cb.click();
-  }
-
   setSubmitHandler(cb) {
     this._cb.submit = cb;
     this.getElement().addEventListener(`submit`, this._submitHandler);
   }
 
-  setClickArrowHandler(cb) {
-    this._cb.click = cb;
-    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickArrowHandler);
-  }
-
   getTemplate() {
     return createAddFormTemplate(this._template);
-  }
-
-  remove() {
-    remove(this);
-  }
-
-  render() {
-    render(this._eventsListElement, this, RenderPosition.AFTER_BEGIN);
   }
 }

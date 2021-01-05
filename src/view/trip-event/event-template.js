@@ -1,6 +1,6 @@
 import {createContainerElement} from "../../utils/utils.js";
 import {RenderPosition, render, replace} from "../../utils/render.js";
-import TripPoint from "./point.js";
+import TripPoint from "./trip-point.js";
 import EditForm from "../trip-event-form/edit-form.js";
 
 let closedEditFormFlag = true;
@@ -8,7 +8,7 @@ let closedEditFormFlag = true;
 const pageMainElement = document.querySelector(`.page-main`);
 const siteEventElement = pageMainElement.querySelector(`.trip-events`);
 
-const generateEvents = (array) => {
+export const generateEvents = (array) => {
   const fragment = createContainerElement(`ul`, `trip-events__list`);
   siteEventElement.innerHTML = ``;
   for (let i = 0; i < array.length; i++) {
@@ -22,12 +22,12 @@ const generateTripPoints = (array, i) => {
   const evtComponent = new TripPoint(array[i]);
   const editFormComponent = new EditForm(array[i]);
 
-  const itemToForm = () => {
+  const replaceItemToForm = () => {
     closedEditFormFlag = false;
     replace(editFormComponent, evtComponent);
   };
 
-  const formToItem = () => {
+  const replaceFormToItem = () => {
     closedEditFormFlag = true;
     replace(evtComponent, editFormComponent);
   };
@@ -35,25 +35,25 @@ const generateTripPoints = (array, i) => {
   const onEscKeyDown = (evt) => {
     evt.preventDefault();
     if (evt.key === `Escape`) {
-      formToItem();
+      replaceFormToItem();
       document.removeEventListener(`keydown`, onEscKeyDown);
     }
   };
 
   evtComponent.setClickArrowHandler(() => {
     if (closedEditFormFlag) {
-      itemToForm();
+      replaceItemToForm();
       document.addEventListener(`keydown`, onEscKeyDown);
     }
   });
 
   editFormComponent.setSubmitHandler(() => {
-    formToItem();
+    replaceFormToItem();
     document.removeEventListener(`keydown`, onEscKeyDown);
   });
 
   editFormComponent.setClickArrowHandler(() => {
-    formToItem();
+    replaceFormToItem();
     document.removeEventListener(`keydown`, onEscKeyDown);
   });
 
@@ -61,7 +61,3 @@ const generateTripPoints = (array, i) => {
   return fragment;
 };
 
-
-export {
-  generateEvents
-};

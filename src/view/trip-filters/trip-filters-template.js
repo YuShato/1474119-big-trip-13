@@ -1,19 +1,27 @@
-import Abstract from "../abstract.js";
+import TripFilters from "./trip-filters.js";
+import TripFilter from "./trip-filter.js";
 
-const createTripFilterTemplate = (filtersHtml) => {
-  return `<form class="trip-filters" action="#" method="get">
-   ${filtersHtml}
-   <button class="visually-hidden" type="submit">Accept filter</button>
-  </form>`;
+const FILTERS = [
+  {
+    name: `Everything`,
+    isChecked: true
+  },
+  {
+    name: `Future`,
+    isChecked: false
+  },
+  {
+    name: `Past`,
+    isChecked: false
+  },
+];
+
+const generateTripFilterForm = () => {
+  const filters = FILTERS.map((filter) => new TripFilters(filter).getElement()).join(``);
+  return new TripFilter(filters).getElement();
 };
 
-export default class TripFilter extends Abstract {
-  constructor(filtersHtml) {
-    super();
-    this._filtersHtml = filtersHtml;
-  }
+export {
+  generateTripFilterForm
+};
 
-  getTemplate() {
-    return createTripFilterTemplate(this._filtersHtml);
-  }
-}

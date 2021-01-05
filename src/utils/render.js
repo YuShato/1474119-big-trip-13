@@ -5,7 +5,7 @@ export const RenderPosition = {
   BEFORE_END: `beforeend`,
 };
 
-export const render = (container, child, place) => {
+export const render = (container, child, position) => {
   if (container instanceof Abstract) {
     container = container.getElement();
   }
@@ -14,7 +14,7 @@ export const render = (container, child, place) => {
     child = child.getElement();
   }
 
-  switch (place) {
+  switch (position) {
     case RenderPosition.AFTER_BEGIN:
       container.prepend(child);
       break;

@@ -110,7 +110,7 @@ const getRandomImg = () => {
   return new Array(getRandomInt(1, 5)).fill({}).map(createPhotoSrc);
 };
 
-const getAllEventsSum = (data) => data.reduce((sum, elem) => sum + elem.totalSum, 0);
+const getAllEventsSum = (data) => data.reduce((sum, event) => sum + event.totalSum, 0);
 
 const generateMockTripEvent = () => {
   const startDate = generateRandomDate();

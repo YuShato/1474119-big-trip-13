@@ -1,5 +1,5 @@
 import {RenderPosition, render} from "../../utils/render.js";
-import TripDates from "./dates.js";
+import TripDates from "./trip-dates.js";
 import {getDurationOfTravel} from "../../utils/filter";
 
 const updateTripDates = (dates) => {

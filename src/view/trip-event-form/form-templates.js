@@ -2,14 +2,14 @@ import dayjs from 'dayjs';
 import {generateTemplatesUsingClass} from "../../utils/utils.js";
 import TypeInput from "./type-input.js";
 import {getRandomDescription, getRandomOffer} from "../../mock/data.js";
-import TypesWrapper from "./types.js";
-import CityOption from "./option-city.js";
+import TypesWrapper from "./types-wrapper.js";
+import CityOption from "./city-option.js";
 import TimeInput from "./time-input.js";
-import EventPrice from "./price-field.js";
+import EventPrice from "./event-price.js";
 import FormButton from "./form-button.js";
 import Offer from "./offer.js";
 import {getRandomImg, cities} from "../../mock/data.js";
-import FormPhoto from "./photo.js";
+import FormPhoto from "./form-photo.js";
 import {FULL_DATE_FORMAT} from "../../const.js";
 import {humanizeTimeForForm} from "../../utils/utils.js";
 
@@ -93,7 +93,7 @@ const generateOfferHtml = (offersData) => generateTemplatesUsingClass(offersData
 
 const generateEventPhotosHtml = (photosData) => generateTemplatesUsingClass(photosData, FormPhoto);
 
-const addFormPartsTemplate = () => {
+export const addFormPartsTemplate = () => {
   const offersData = generateOffersData();
   const photosData = getRandomImg();
   return {
@@ -108,7 +108,7 @@ const addFormPartsTemplate = () => {
   };
 };
 
-const editFormPartsTemplate = (point) => {
+export const editFormPartsTemplate = (point) => {
   return {
     id: point.id,
     city: point.city,
@@ -125,7 +125,3 @@ const editFormPartsTemplate = (point) => {
   };
 };
 
-export {
-  addFormPartsTemplate,
-  editFormPartsTemplate
-};
