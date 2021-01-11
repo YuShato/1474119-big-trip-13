@@ -1,9 +1,5 @@
 import Sorter from "./sorter.js";
-import SorterForm from "./sorter-form.js";
 import {generateTemplatesUsingClass} from "../../utils/utils.js";
-import {RenderPosition, render} from "../../utils/render.js";
-
-const pageMainElement = document.querySelector(`.page-main`);
 
 const sorters = [
   {
@@ -33,14 +29,4 @@ const sorters = [
   }
 ];
 
-const generateSorterTemplatesHtml = () => generateTemplatesUsingClass(sorters, Sorter);
-
-const renderSorterForm = () => {
-  const tripEventsElement = pageMainElement.querySelector(`.trip-events`);
-  render(tripEventsElement, new SorterForm(generateSorterTemplatesHtml()), RenderPosition.AFTER_BEGIN);
-  return tripEventsElement;
-};
-
-export {
-  renderSorterForm
-};
+export const generateSorterTemplatesHtml = () => generateTemplatesUsingClass(sorters, Sorter);

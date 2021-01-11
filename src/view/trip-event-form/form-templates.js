@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {generateTemplatesUsingClass} from "../../utils/utils.js";
+import {generateTemplatesUsingClass, humanizeTimeForForm} from "../../utils/utils.js";
 import TypeInput from "./type-input.js";
 import {getRandomDescription, getRandomOffer} from "../../mock/data.js";
 import TypesWrapper from "./types-wrapper.js";
@@ -11,7 +11,6 @@ import Offer from "./offer.js";
 import {getRandomImg, cities} from "../../mock/data.js";
 import FormPhoto from "./form-photo.js";
 import {FULL_DATE_FORMAT} from "../../const.js";
-import {humanizeTimeForForm} from "../../utils/utils.js";
 
 const eventTimeLabels = [
   {

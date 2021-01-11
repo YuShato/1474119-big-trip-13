@@ -52,7 +52,7 @@ export default class AddForm extends Abstract {
     this._submitHandler = this._submitHandler.bind(this);
   }
 
-  _submitHandler(evt) {
+   _submitHandler(evt) {
     evt.preventDefault();
     this._cb.submit();
   }

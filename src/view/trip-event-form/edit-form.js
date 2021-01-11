@@ -1,5 +1,5 @@
 import Abstract from "../abstract.js";
-import {editFormPartsTemplate} from "../trip-event-form/form-templates.js";
+import {editFormPartsTemplate} from "./form-templates.js";
 
 const createEditFormTemplate = (point) => {
   const editFormTemplate = editFormPartsTemplate(point);

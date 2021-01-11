@@ -1,5 +1,5 @@
-import TripFilters from "./trip-filters.js";
-import TripFilter from "./trip-filter.js";
+import TripFilters from "../view/trip-filters/trip-filters.js";
+import TripFilter from "../view/trip-filters/trip-filter.js";
 
 const FILTERS = [
   {

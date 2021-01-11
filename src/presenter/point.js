@@ -1,7 +1,7 @@
-import {createContainerElement} from "../../utils/utils.js";
-import {RenderPosition, render, replace} from "../../utils/render.js";
-import TripPoint from "./trip-point.js";
-import EditForm from "../trip-event-form/edit-form.js";
+import {createContainerElement} from "../utils/utils.js";
+import {RenderPosition, render, replace} from "../utils/render.js";
+import TripPoint from "../view/trip-event/trip-point.js";
+import EditForm from "../view/trip-event-form/edit-form.js";
 
 let closedEditFormFlag = true;
 
@@ -61,3 +61,30 @@ const generateTripPoints = (array, i) => {
   return fragment;
 };
 
+export default class Point {
+  constructor(points, index) {
+    this._points = points;
+    this._index = index;
+    this._fragment = document.createDocumentFragment();
+
+    this._evtComponent = new TripPoint(this._points[this._index]);
+    this._editFormComponent = new EditForm((this._points[this._index]));
+  }
+
+  _replaceItemToForm() {
+    closedEditFormFlag = false;
+    replace(this._editFormComponent, this._evtComponent);
+  }
+
+  _replaceFormToItem() {
+    closedEditFormFlag = true;
+    replace(this._evtComponent, this._editFormComponent);
+  }
+
+  _renderPoint() {
+    render(this._fragment, this._evtComponent, RenderPosition.BEFORE_END);
+    return this._fragment;
+  }
+
+
+}
