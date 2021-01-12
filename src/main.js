@@ -29,25 +29,25 @@ const onNewEventBtnPress = () => {
   formCancelBtn.addEventListener(`click`, removeAddForm);
 };
 
-const onChangeTimeFilter = () => {
-  const tripFilterElements = document.querySelector(`.trip-filters`);
-  tripFilterElements.addEventListener(`click`, (evt) => {
-    switch (evt.target.value) {
-      case `past`:
-        new Events(siteMainElement, siteEventElement, siteControlElement).renderEventsList(pastEvents);
-        break;
-      case `future`:
-        new Events(siteMainElement, siteEventElement, siteControlElement).renderEventsList(futureEvents);
-        break;
-      default:
-        new Events(siteMainElement, siteEventElement, siteControlElement).renderEventsList(eventMockData);
-    }
-  });
-};
+// const onChangeTimeFilter = () => {
+//   const tripFilterElements = document.querySelector(`.trip-filters`);
+//   tripFilterElements.addEventListener(`click`, (evt) => {
+//     switch (evt.target.value) {
+//       case `past`:
+//         new Events(siteMainElement, siteEventElement, siteControlElement).renderEventsList(pastEvents);
+//         break;
+//       case `future`:
+//         new Events(siteMainElement, siteEventElement, siteControlElement).renderEventsList(futureEvents);
+//         break;
+//       default:
+//         new Events(siteMainElement, siteEventElement, siteControlElement).renderEventsList(eventMockData);
+//     }
+//   });
+// };
 
 new Events(siteMainElement, siteEventElement, siteControlElement).init(eventMockData);
 
-onChangeTimeFilter();
+// onChangeTimeFilter();
 
 newEventBtn.addEventListener(`click`, onNewEventBtnPress);
 newEventBtn.addEventListener(`keydown`, (evt) => {
@@ -56,4 +56,3 @@ newEventBtn.addEventListener(`keydown`, (evt) => {
   }
 });
 
-console.log(eventMockData)

@@ -8,11 +8,18 @@ import TripInfo from "../view/page-header/trip-info.js";
 import {getAllEventsSum, headerCities} from "../mock/data.js";
 import SiteMenuControls from "../view/page-header/site-menu-controls.js";
 import {generateTripFilterForm} from "./trip-filters-template.js";
+import dayjs from 'dayjs';
 
 const SortMode = {
   DEFAULT: `sort-day`,
   TIME: `sort-time`,
-  PRICE: `sort-price`,
+  PRICE: `sort-price`
+};
+
+const FilterMode = {
+  DEFAULT: `everything`,
+  FUTURE: `future`,
+  PAST: `past`
 };
 
 export default class Events {
@@ -39,13 +46,6 @@ export default class Events {
     this._renderControls();
     this._renderFilters();
     this.renderEventsList(this._events);
-    this._sortByDay();
-  }
-
-  _renderSort() {
-    this._tripEventsElement = document.querySelector(`.trip-events`);
-    // this._sort.setSortChangeHandler(this._sortChangeHandler);
-    render(this._tripEventsElement, this._sort, RenderPosition.AFTER_BEGIN);
   }
 
   _sortChangeHandler(value) {
@@ -54,22 +54,26 @@ export default class Events {
 
       switch (value) {
         case SortMode.DEFAULT:
-          this._sortByDay();
+          this.renderEventsList(this._sortByDay());
           break;
         case SortMode.TIME:
-          this._sortByTime();
+          this.renderEventsList(this._sortByTime());
           break;
         case SortMode.PRICE:
-          this._sortByPrice();
+          this.renderEventsList(this._sortByPrice());
           break;
       }
-
-      this._renderPoints();
     }
   }
 
-  _isAnotherMode(data) {
-    return data !== this._currentSortMode;
+  _isAnotherMode(value) {
+    return value !== this._currentSortMode;
+  }
+
+  _renderSort() {
+    // this._sort.setSortChangeHandler(this._sortChangeHandler);
+    this._tripEventsElement = document.querySelector(`.trip-events`);
+    render(this._tripEventsElement, this._sort, RenderPosition.AFTER_BEGIN);
   }
 
   _updateDates() {
@@ -92,7 +96,7 @@ export default class Events {
 
   renderEventsList(events) {
     this._events = events.slice();
-
+    this._sortByDay();
     this._renderEvents(this._events);
     this._updateDates();
     this._renderSort();
@@ -121,6 +125,36 @@ export default class Events {
 
   _sortByPrice() {
     this._events.sort((a, b) => a.price - b.price);
+  }
+
+  _futureEvents() {
+    this._events.filter((event) => (dayjs(event.endTime) > dayjs()));
+  }
+
+  _pastEvents() {
+    this._events.filter((event) => (dayjs(event.endTime) < dayjs()));
+  }
+
+  _isAnotherFilterMode(value) {
+    return value !== this._currentFilterMode;
+  }
+
+  _timeFilterHandler(value) {
+    if (this._isAnotherFilterMode(value)) {
+      this._currentFilterMode = value;
+
+      switch (value) {
+        case FilterMode.DEFAULT:
+          this.renderEventsList(this._events);
+          break;
+        case FilterMode.FUTURE:
+          this.renderEventsList(this._futureEvents);
+          break;
+        case FilterMode.PAST:
+          this.renderEventsList(this._pastEvents);
+          break;
+      }
+    }
   }
 }
 
