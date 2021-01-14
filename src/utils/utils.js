@@ -53,3 +53,4 @@ export const timeGap = (startTime, endTime) => dayjs.duration(endTime.diff(start
 
 export const humanizeTimeForForm = (time) => time ? time.format(FULL_DATE_FORMAT) : ``;
 
+export const getTodayDate = () => dayjs().format(FULL_DATE_FORMAT);

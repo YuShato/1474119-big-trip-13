@@ -1,14 +1,18 @@
 import Abstract from "../abstract.js";
 
-const createFormPhotoTemplate = (src) => `<img class="event__photo" src="${src}" alt="Event photo">`;
+const createFormPhotoTemplate = (pointPhotos) => {
+  return `<div class="event__photos-tape">
+    ${pointPhotos.map((pointPhoto) => `<img class="event__photo" src="${pointPhoto.src}" alt="${pointPhoto.description}">`)}
+  </div>`;
+};
 
 export default class FormPhoto extends Abstract {
-  constructor(src) {
+  constructor(pointPhotos) {
     super();
-    this._src = src;
+    this._pointPhotos = pointPhotos;
   }
 
   getTemplate() {
-    return createFormPhotoTemplate(this._src);
+    return createFormPhotoTemplate(this._pointPhotos);
   }
 }
