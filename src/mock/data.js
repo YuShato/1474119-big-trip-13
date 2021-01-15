@@ -1,12 +1,12 @@
 import {generateTemplatesUsingClass} from "../utils/utils.js";
 import {getRandomInt, getRandomPositiveInt, getArrayRandomElement, getRandomProperty, getRandomBoolean} from "../utils/randomizer.js";
 import EventOffer from "../view/trip-event/event-offer.js";
-import dayjs from 'dayjs';
-import {nanoid} from 'nanoid';
+import dayjs from "dayjs";
+import {nanoid} from "nanoid";
 
 export const OFFERS_COUNT = 15;
-export const cities = [`Lisboa`, `Porto`, `Sesimbra`, `Coimbra`, `Cascais`];
-const eventTypes = [`taxi`, `flight`, `drive`, `check-in`, `sightseeing`, `restaurant`, `ship`, `transport`];
+export const CITIES = [`Lisboa`, `Porto`, `Sesimbra`, `Coimbra`, `Cascais`];
+const EVENT_TYPES = [`taxi`, `flight`, `drive`, `check-in`, `sightseeing`, `restaurant`, `ship`, `transport`];
 
 export const offerDetails = [
   {
@@ -15,7 +15,7 @@ export const offerDetails = [
     price: 30,
     isChecked: getRandomBoolean(),
     idName: `event-offer-luggage`,
-    type: getArrayRandomElement(eventTypes)
+    type: getArrayRandomElement(EVENT_TYPES)
   },
   {
     name: `Switch to comfort class`,
@@ -23,7 +23,7 @@ export const offerDetails = [
     price: 100,
     isChecked: getRandomBoolean(),
     idName: `event-offer-comfort`,
-    type: getArrayRandomElement(eventTypes)
+    type: getArrayRandomElement(EVENT_TYPES)
   },
   {
     name: `Add meal`,
@@ -31,7 +31,7 @@ export const offerDetails = [
     price: 15,
     isChecked: getRandomBoolean(),
     idName: `event-offer-meal`,
-    type: getArrayRandomElement(eventTypes)
+    type: getArrayRandomElement(EVENT_TYPES)
   },
   {
     name: `Choose seats`,
@@ -39,7 +39,7 @@ export const offerDetails = [
     price: 5,
     isChecked: getRandomBoolean(),
     idName: `event-offer-seats`,
-    type: getArrayRandomElement(eventTypes)
+    type: getArrayRandomElement(EVENT_TYPES)
   },
   {
     name: `Travel by train`,
@@ -47,7 +47,7 @@ export const offerDetails = [
     price: 40,
     isChecked: getRandomBoolean(),
     idName: `event-offer-train`,
-    type: getArrayRandomElement(eventTypes)
+    type: getArrayRandomElement(EVENT_TYPES)
   }
 ];
 
@@ -59,24 +59,21 @@ const maxGapHours = {
 };
 
 const formPhotosCount = {
-  min: 1,
-  max: 5,
-  maxRandomPhoto: 1000
+  MIN: 1,
+  MAX: 5,
+  MAX_RANDOM_PHOTO: 1000
 };
 
 const HEADER_CITIES_COUNT = 3;
 
-const descriptionText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`;
+const DESCRIPTION_TEXT = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`;
 
-const sentences = descriptionText.split(`. `);
+const sentences = DESCRIPTION_TEXT.split(`. `);
 
 export const getRandomOffer = () => {
-  const specialOfferCount = {
-    MIN: 0,
-    MAX: 5
-  };
+  const SPECIAL_OFFER_MAX_COUNT = 5;
 
-  const offersCount = getRandomPositiveInt(specialOfferCount.MAX);
+  const offersCount = getRandomPositiveInt(SPECIAL_OFFER_MAX_COUNT);
   const newOffers = [];
 
   for (let i = 0; i < offersCount; i++) {
@@ -100,8 +97,8 @@ export const getRandomDescription = () => {
 };
 
 const prices = {
-  min: 3,
-  max: 300
+  MIN: 3,
+  MAX: 300
 };
 
 const generateRandomDate = () => dayjs().add(getRandomInt(-MAX_GAP_DAYS, MAX_GAP_DAYS), `days`);
@@ -110,26 +107,26 @@ const generateRandomDateOffset = (startDate) => {
   return startDate.add(getRandomPositiveInt(MAX_GAP_DAYS), `days`).add(getRandomInt(maxGapHours.MIN, maxGapHours.MAX), `hours`);
 };
 
-const generateCity = () => `${getArrayRandomElement(cities)}`;
+const generateCity = () => `${getArrayRandomElement(CITIES)}`;
 
-const generateEvent = () => `${getArrayRandomElement(eventTypes)}`;
+const generateEvent = () => `${getArrayRandomElement(EVENT_TYPES)}`;
 
 export const getRandomImg = () => {
   const createPhotoSrc = () => {
     return {
-      src: `http://picsum.photos/248/152?r=${getRandomPositiveInt(formPhotosCount.maxRandomPhoto)}`,
+      src: `http://picsum.photos/248/152?r=${getRandomPositiveInt(formPhotosCount.MAX_RANDOM_PHOTO)}`,
       description: getArrayRandomElement(sentences)
     };
   };
 
-  return new Array(getRandomInt(formPhotosCount.min, formPhotosCount.max)).fill({}).map(createPhotoSrc);
+  return new Array(getRandomInt(formPhotosCount.MIN, formPhotosCount.MAX)).fill({}).map(createPhotoSrc);
 };
 
 export const getAllEventsSum = (data) => data.reduce((sum, event) => sum + event.totalSum, 0);
 
 const generateMockTripEvent = () => {
   const startDate = generateRandomDate();
-  const eventPrice = getRandomInt(prices.min, prices.max);
+  const eventPrice = getRandomInt(prices.MIN, prices.MAX);
   const allOffers = getRandomOffer();
   const totalTripPrice = allOffers.filter((offer) => offer.isChecked === `checked`).reduce((sum, elem) => sum + elem.price, 0) + eventPrice;
   const checkedOffersList = generateTemplatesUsingClass(allOffers.filter((offer) => offer.isChecked), EventOffer);

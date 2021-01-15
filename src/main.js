@@ -44,7 +44,7 @@ const renderDescription = (point, fragment) => {
 const deleteEditFormButtons = (point, fragment) => {
   const editFormFavoriteBtn = fragment.querySelector(`.event__favorite-btn`);
   const editFormRollUpBtn = fragment.querySelector(`.event__rollup-btn`);
-  if (!point || point === null) {
+  if (point === null) {
     editFormFavoriteBtn.parentElement.removeChild(editFormFavoriteBtn);
     editFormRollUpBtn.parentElement.removeChild(editFormRollUpBtn);
   }
@@ -85,21 +85,6 @@ const createAddForm = () => {
   renderFormOffers(null, fragment);
   renderPhotos(null, fragment);
   renderDescription(null, fragment);
-
-  return fragment;
-};
-
-export const createEditForm = (point) => {
-  const fragment = document.createDocumentFragment(`div`);
-  renderFormTemplate(fragment);
-  renderHeader(fragment);
-  deleteEditFormButtons(point, fragment);
-  renderCities(fragment);
-  renderTimeInputs(fragment);
-  renderPrice(fragment);
-  renderFormOffers(point, fragment);
-  renderPhotos(point, fragment);
-  renderDescription(point, fragment);
 
   return fragment;
 };
