@@ -7,7 +7,7 @@ import TripInfo from "../view/trip-info.js";
 import {getAllEventsSum, headerCities} from "../mock/data.js";
 import SiteMenuControls from "../view/site-menu-controls.js";
 import TripFilter from "../view/trip-filter.js";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 const SortMode = {
   DEFAULT: `sort-day`,
@@ -137,23 +137,4 @@ export default class Events {
   _isAnotherFilterMode(value) {
     return value !== this._currentFilterMode;
   }
-
-  _timeFilterHandler(value) {
-    if (this._isAnotherFilterMode(value)) {
-      this._currentFilterMode = value;
-
-      switch (value) {
-        case FilterMode.DEFAULT:
-          this.renderEventsList(this._events);
-          break;
-        case FilterMode.FUTURE:
-          this.renderEventsList(this._futureEvents);
-          break;
-        case FilterMode.PAST:
-          this.renderEventsList(this._pastEvents);
-          break;
-      }
-    }
-  }
 }
-

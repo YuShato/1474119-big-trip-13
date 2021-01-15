@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration';
 import {render, RenderPosition} from "../utils/render.js";
 import {TIME_FORMAT, FULL_DATE_FORMAT} from "../const.js";

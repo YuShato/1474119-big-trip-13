@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 export const getFutureEvents = (data) => data.filter((elem) => (dayjs(elem.endTime) > dayjs()));
 

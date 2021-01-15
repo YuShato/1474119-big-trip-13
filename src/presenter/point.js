@@ -60,29 +60,3 @@ const generateTripPoints = (array, i) => {
   render(fragment, evtComponent, RenderPosition.BEFORE_END);
   return fragment;
 };
-
-export default class Point {
-  constructor(points, index) {
-    this._points = points;
-    this._index = index;
-    this._fragment = document.createDocumentFragment();
-
-    this._evtComponent = new TripPoint(this._points[this._index]);
-    this._editFormComponent = new PointForm((this._points[this._index]));
-  }
-
-  _replaceItemToForm() {
-    closedEditFormFlag = false;
-    replace(this._editFormComponent, this._evtComponent);
-  }
-
-  _replaceFormToItem() {
-    closedEditFormFlag = true;
-    replace(this._evtComponent, this._editFormComponent);
-  }
-
-  _renderPoint() {
-    render(this._fragment, this._evtComponent, RenderPosition.BEFORE_END);
-    return this._fragment;
-  }
-}
