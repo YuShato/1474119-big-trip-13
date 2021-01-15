@@ -15,12 +15,6 @@ const SortMode = {
   PRICE: `sort-price`
 };
 
-const FilterMode = {
-  DEFAULT: `everything`,
-  FUTURE: `future`,
-  PAST: `past`
-};
-
 export default class Events {
   constructor(siteMainElement, siteEventElement, siteControlElement) {
     this._events = null;
