@@ -84,12 +84,9 @@ export const getRandomOffer = () => {
 };
 
 export const getRandomDescription = () => {
-  const descriptionSize = {
-    MIN: 1,
-    MAX: 5
-  };
+  const DESCRIPTION_MAX_SIZE = 5;
 
-  const currentLength = getRandomPositiveInt(descriptionSize.MAX) + 1;
+  const currentLength = getRandomPositiveInt(DESCRIPTION_MAX_SIZE) + 1;
   const tripDescriptions = Array.from({
     length: currentLength
   }, () => (getArrayRandomElement(sentences)));

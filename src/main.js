@@ -1,5 +1,5 @@
 import {RenderPosition, render} from "./utils/render.js";
-import {cities, eventMockData, offerDetails, getRandomImg, getRandomDescription} from "./mock/data.js";
+import {CITIES, eventMockData, offerDetails, getRandomImg, getRandomDescription} from "./mock/data.js";
 import AddForm from "./view/trip-event-form/point-form";
 import Events from "./presenter/events.js";
 import TypesWrapper from "./view/trip-event-form/types-wrapper";
@@ -62,7 +62,7 @@ const renderTimeInputs = (fragment) => {
 
 const renderCities = (fragment) => {
   const eventFieldGroup = fragment.querySelector(`.event__field-group--destination`);
-  render(eventFieldGroup, new CityCollection(cities), RenderPosition.BEFORE_END);
+  render(eventFieldGroup, new CityCollection(CITIES), RenderPosition.BEFORE_END);
 };
 
 const renderHeader = (fragment) => {
@@ -75,7 +75,7 @@ const renderFormTemplate = (parentElement) => {
 };
 
 const createAddForm = () => {
-  const fragment = document.createDocumentFragment(`div`);
+  const fragment = document.createDocumentFragment();
   renderFormTemplate(fragment);
   renderHeader(fragment);
   deleteEditFormButtons(null, fragment);
