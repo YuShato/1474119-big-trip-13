@@ -1,12 +1,13 @@
 import {RenderPosition, render} from "../utils/render.js";
 import EmptyContainer from "../view/trip-event/empty-container.js";
 import {generateEvents} from "./point.js";
-import SorterForm from "../view/sorter-form.js";
+import {generateSorterTemplatesHtml} from "../view/trip-sorters/sorter-template.js";
+import SorterForm from "../view/trip-sorters/sorter-form.js";
 import Dates from "./dates.js";
-import TripInfo from "../view/trip-info.js";
+import TripInfo from "../view/page-header/trip-info.js";
 import {getAllEventsSum, headerCities} from "../mock/data.js";
-import SiteMenuControls from "../view/site-menu-controls.js";
-import TripFilter from "../view/trip-filter.js";
+import SiteMenuControls from "../view/page-header/site-menu-controls.js";
+import {generateTripFilterForm} from "./trip-filters-template.js";
 import dayjs from 'dayjs';
 
 const SortMode = {
@@ -31,8 +32,8 @@ export default class Events {
 
     this._tripInfo = new TripInfo(headerCities);
     this._siteMenuControl = new SiteMenuControls();
-    this._tripFilterForm = new TripFilter();
-    this._sort = new SorterForm();
+    this._tripFilterForm = generateTripFilterForm();
+    this._sort = new SorterForm(generateSorterTemplatesHtml());
 
     this._sortChangeHandler = this._sortChangeHandler.bind(this);
     this._currentSortMode = SortMode.DEFAULT;

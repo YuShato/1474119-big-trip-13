@@ -63,7 +63,8 @@ const createTypesWrapperTemplate = () => {
       </div>
     </fieldset>
   </div>
-</div>`;
+</div>
+`;
 };
 
 export default class TypesWrapper extends Abstract {

@@ -1,5 +1,5 @@
 import {RenderPosition, render} from "../utils/render.js";
-import TripDates from "../view/trip-dates.js";
+import TripDates from "../view/page-header/trip-dates.js";
 import {getDurationOfTravel} from "../utils/filter";
 
 export default class Dates {

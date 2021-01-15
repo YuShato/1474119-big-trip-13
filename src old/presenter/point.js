@@ -85,4 +85,6 @@ export default class Point {
     render(this._fragment, this._evtComponent, RenderPosition.BEFORE_END);
     return this._fragment;
   }
+
+
 }

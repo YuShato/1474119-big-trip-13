@@ -22,6 +22,15 @@ export const createElement = (template) => {
   return container.firstChild;
 };
 
+export const renderCollectionUsingCallback = (data, callBack) => {
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < data.length; i++) {
+    const element = callBack(data[i]);
+    render(fragment, element, RenderPosition.BEFORE_END);
+  }
+  return fragment;
+};
+
 export const renderCollectionUsingClass = (data, Class) => {
   const fragment = createContainerElement(`div`);
   for (let i = 0; i < data.length; i++) {

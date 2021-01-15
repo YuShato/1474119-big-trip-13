@@ -1,7 +1,7 @@
 import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate} from "../../utils/utils.js";
 import Abstract from "../abstract.js";
 
-const createTripPointTemplate = (event) => {
+const createTripPointTemplate = (offer) => {
   const {
     city,
     tripEvent,
@@ -9,7 +9,7 @@ const createTripPointTemplate = (event) => {
     startTime,
     endTime,
     checkedOffers
-  } = event;
+  } = offer;
   return `<li class="trip-events__item">
   <div class="event">
     <time class="event__date" datetime="${startTime}">${humanizeTaskDueDate(startTime)}</time>
@@ -48,9 +48,9 @@ const createTripPointTemplate = (event) => {
 };
 
 export default class TripPoint extends Abstract {
-  constructor(event) {
+  constructor(offer) {
     super();
-    this._event = event;
+    this._offer = offer;
     this._clickArrowHandler = this._clickArrowHandler.bind(this);
   }
 
@@ -67,6 +67,6 @@ export default class TripPoint extends Abstract {
   }
 
   getTemplate() {
-    return createTripPointTemplate(this._event);
+    return createTripPointTemplate(this._offer);
   }
 }
