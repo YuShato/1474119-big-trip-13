@@ -1,12 +1,15 @@
 import {timeGap, humanizeTaskDueTime, humanizeTaskDueDate} from "../../utils/utils.js";
-const createTripPointTemplate = ({
-  city,
-  tripEvent,
-  totalSum,
-  startTime,
-  endTime,
-  checkedOffers
-}) => {
+import Abstract from "../abstract.js";
+
+const createTripPointTemplate = (event) => {
+  const {
+    city,
+    tripEvent,
+    totalSum,
+    startTime,
+    endTime,
+    checkedOffers
+  } = event;
   return `<li class="trip-events__item">
   <div class="event">
     <time class="event__date" datetime="${startTime}">${humanizeTaskDueDate(startTime)}</time>
@@ -44,5 +47,26 @@ const createTripPointTemplate = ({
 </li>`;
 };
 
-export {
-  createTripPointTemplate};
+export default class TripPoint extends Abstract {
+  constructor(event) {
+    super();
+    this._event = event;
+    this._clickArrowHandler = this._clickArrowHandler.bind(this);
+  }
+
+  _clickArrowHandler(evt) {
+    evt.preventDefault();
+    this._cb.click();
+  }
+
+  setClickArrowHandler(cb) {
+    this._cb.click = cb;
+    this.getElement()
+      .querySelector(`.event__rollup-btn`)
+      .addEventListener(`click`, this._clickArrowHandler);
+  }
+
+  getTemplate() {
+    return createTripPointTemplate(this._event);
+  }
+}
