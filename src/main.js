@@ -19,6 +19,7 @@ const removeAddForm = () => {
   const addForm = pageMainElement.querySelector(`.event--edit`);
   addForm.parentElement.removeChild(addForm);
   newEventBtn.addEventListener(`click`, renderAddForm);
+  document.removeEventListener(`keydown`, onEscKeydown);
 };
 
 const renderFormOffers = (point, fragment) => {

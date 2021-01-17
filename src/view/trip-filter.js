@@ -24,9 +24,21 @@ const createTripFilterTemplate = () => {
 export default class TripFilter extends Abstract {
   constructor() {
     super();
+
+    this._filterChangeHandler = this._filterChangeHandler.bind(this);
   }
 
   getTemplate() {
     return createTripFilterTemplate();
+  }
+
+  _filterChangeHandler(evt) {
+    evt.preventDefault();
+    this._cb.filterChange(evt.target.htmlFor);
+  }
+
+  setFilterChangeHandler(cb) {
+    this._cb.filterChange = cb;
+    this.getElement().addEventListener(`click`, this._filterChangeHandler);
   }
 }

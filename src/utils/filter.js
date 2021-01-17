@@ -10,3 +10,7 @@ export const getDurationOfTravel = (dates) => {
     max: dayjs(tripDates[tripDates.length - 1]).format(TRIP_INFO_START_DATE_FORMAT)
   };
 };
+
+export const getFutureEvents = (data) => data.filter((elem) => (dayjs(elem.startTime) > dayjs()));
+
+export const getPastEvents = (data) => data.filter((elem) => (dayjs(elem.endTime) < dayjs()));
