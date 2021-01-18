@@ -1,10 +1,10 @@
 import Abstract from "../abstract";
 
-const createTypesWrapperTemplate = () => {
+const createTypesWrapperTemplate = (template) => {
   return `<div class="event__type-wrapper">
   <label class="event__type  event__type-btn" for="event-type-toggle-1">
     <span class="visually-hidden">Choose event type</span>
-    <img class="event__type-icon" width="17" height="17" src="img/icons/flight.png" alt="Event type icon">
+    <img class="event__type-icon" width="17" height="17" src="img/icons/${template ? template.tripEvent : `flight`}.png" alt="Event type icon">
   </label>
   <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
@@ -44,7 +44,7 @@ const createTypesWrapperTemplate = () => {
 
       <div class="event__type-item">
         <input id="event-type-flight-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="flight" checked>
-        <label class="event__type-label  event__type-label--flight" for="event-type-flight-1">Flight</label>
+        <label class="event__type-label  event__type-label--flight" for="event-type-flight-1"> Flight </label>
       </div>
 
       <div class="event__type-item">
@@ -67,12 +67,13 @@ const createTypesWrapperTemplate = () => {
 };
 
 export default class TypesWrapper extends Abstract {
-  constructor() {
+  constructor(template) {
     super();
     this._element = null;
+    this._template = template;
   }
 
   getTemplate() {
-    return createTypesWrapperTemplate();
+    return createTypesWrapperTemplate(this._template);
   }
 }

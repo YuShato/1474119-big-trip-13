@@ -1,13 +1,13 @@
 import Abstract from "../abstract.js";
 
-const createAddFormTemplate = () => {
+const createAddFormTemplate = (template) => {
   return `<form class="event event--edit" action="#" method="post">
   <header class="event__header">
     <div class="event__field-group  event__field-group--destination">
       <label class="event__label  event__type-output" for="event-destination-1">
-        Flight
+      ${template ? template.tripEvent : `Flight`}
       </label>
-      <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="" list="destination-list-1">
+      <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${template ? template.city : ``}" list="destination-list-1">
     </div>
     <div class="event__field-group  event__field-group--time"></div>
     <div class="event__field-group  event__field-group--price"></div>
@@ -42,8 +42,9 @@ const createAddFormTemplate = () => {
 };
 
 export default class PointForm extends Abstract {
-  constructor() {
+  constructor(template) {
     super();
+    this._template = template;
     this._submitHandler = this._submitHandler.bind(this);
     this._clickArrowHandler = this._clickArrowHandler.bind(this);
   }
@@ -69,6 +70,6 @@ export default class PointForm extends Abstract {
   }
 
   getTemplate() {
-    return createAddFormTemplate();
+    return createAddFormTemplate(this._template);
   }
 }

@@ -13,4 +13,4 @@ export const getDurationOfTravel = (dates) => {
 
 export const getFutureEvents = (data) => data.filter((elem) => (dayjs(elem.startTime) > dayjs()));
 
-export const getPastEvents = (data) => data.filter((elem) => (dayjs(elem.endTime) < dayjs()));
+export const getPastEvents = (data) => data.filter((elem) => (dayjs(elem.startTime) < dayjs()));

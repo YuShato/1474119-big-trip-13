@@ -117,4 +117,3 @@ const onEscKeydown = (evt) => {
   }
   document.removeEventListener(`keydown`, onEscKeydown);
 };
-

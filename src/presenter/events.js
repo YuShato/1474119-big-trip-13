@@ -1,13 +1,13 @@
 import {RenderPosition, render} from "../utils/render.js";
 import {getFutureEvents, getPastEvents} from "../utils/filter.js";
 import EmptyContainer from "../view/trip-event/empty-container.js";
-import {generateEvents} from "./point.js";
 import SorterForm from "../view/sorter-form.js";
 import Dates from "./dates.js";
 import TripInfo from "../view/trip-info.js";
 import {getAllEventsSum, headerCities, eventMockData} from "../mock/data.js";
 import SiteMenuControls from "../view/site-menu-controls.js";
 import TripFilter from "../view/trip-filter.js";
+import EventsList from "./events-list.js";
 
 const SorterMode = {
   DEFAULT: `sort-day`,
@@ -68,7 +68,7 @@ export default class Events {
 
     render(
         this._siteEventElement,
-        (this._events.length === 0 || !this._events) ? this._emptyContainer : generateEvents(this._events),
+        (this._events.length === 0 || !this._events) ? this._emptyContainer : new EventsList(this._events).init(),
         RenderPosition.BEFORE_END
     );
   }
@@ -127,6 +127,7 @@ export default class Events {
           this._currentEvents = getPastEvents(this._currentEvents);
           break;
       }
+
       this._sortByDay(this._currentEvents);
       this._renderEventsList(this._currentEvents);
       this._currentEvents = eventMockData;

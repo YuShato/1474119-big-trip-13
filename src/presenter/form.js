@@ -11,26 +11,27 @@ import FormPhoto from "../view/trip-event-form/form-photo.js";
 const newEventBtn = document.querySelector(`.trip-main__event-add-btn`);
 
 export default class Form {
-  constructor() {
-    this._form = new PointForm();
+  constructor(point) {
+    this._point = point;
+    this._form = new PointForm(this._point);
     this._cityCollection = new CityCollection(CITIES);
-    this._types = new TypesWrapper();
-    this._timeField = new TimeField();
-    this._price = new EventPrice();
+    this._types = new TypesWrapper(this._point);
+    this._timeField = new TimeField(this._point);
+    this._price = new EventPrice(this._point);
     this._eventsListElement = null;
 
     this._submitHandler = this._submitHandler.bind(this);
     this._clickArrowHandler = this._clickArrowHandler.bind(this);
   }
 
-  init(point) {
-    this._point = point;
+  init() {
     this._element = null;
     if (!this._point) {
       this._element = this._createAddForm();
     } else {
       this._element = this._createEditForm(this._point);
     }
+
     return this._element;
   }
 
@@ -144,7 +145,6 @@ export default class Form {
     newEventBtn.addEventListener(`click`, this._renderAddForm);
     document.removeEventListener(`keydown`, this._onEscKeydown);
   }
-  // -----
 
   _submitHandler(evt) {
     evt.preventDefault();
@@ -158,11 +158,11 @@ export default class Form {
 
   setSubmitHandler(cb) {
     this._cb.submit = cb;
-    this.getElement().addEventListener(`submit`, this._submitHandler);
+    this._element.addEventListener(`submit`, this._submitHandler);
   }
 
   setClickArrowHandler(cb) {
     this._cb.click = cb;
-    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickArrowHandler);
+    this._element.querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickArrowHandler);
   }
 }

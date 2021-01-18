@@ -1,11 +1,6 @@
-import {createContainerElement} from "../utils/utils.js";
 import {RenderPosition, render, replace} from "../utils/render.js";
 import TripPoint from "../view/trip-event/trip-point.js";
-import PointForm from "../view/trip-event-form/point-form.js";
-// import Form from "./form.js";
-
-const pageMainElement = document.querySelector(`.page-main`);
-const siteEventElement = pageMainElement.querySelector(`.trip-events`);
+import Form from "./form.js";
 
 export default class Point {
   constructor(array, index) {
@@ -13,32 +8,26 @@ export default class Point {
     this._index = index;
 
     this._replaceItemToForm = this._replaceItemToForm.bind(this);
-    this._replaceFormToItem = this._replaceFormToItem.bind(this);
+    this._replaceFormToItem = this.replaceFormToItem.bind(this);
     this._onEscKeyDown = this._onEscKeyDown.bind(this);
+    this._submitHandler = this._submitHandler.bind(this);
+    this._clickArrowHandler = this._clickArrowHandler.bind(this);
+
+    this._closedEditFormFlag = true;
   }
 
   init() {
     this._evtComponent = new TripPoint(this._array[this._index]);
-    this._editFormComponent = new PointForm(this._array[this._index]);
+    this._editFormComponent = new Form(this._array[this._index]).init();
     this._fragment = document.createDocumentFragment();
-    this._closedEditFormFlag = true;
 
     this._evtComponent.setClickArrowHandler(() => {
       this._replaceItemToForm();
       document.addEventListener(`keydown`, this._onEscKeyDown);
     });
 
-    this._editFormComponent.setSubmitHandler(() => {
-      this._replaceFormToItem();
-      document.removeEventListener(`keydown`, this._onEscKeyDown);
-    });
-
-    this._editFormComponent.setClickArrowHandler(() => {
-      if (!this._closedEditFormFlag) {
-        this._replaceFormToItem();
-        document.removeEventListener(`keydown`, this._onEscKeyDown);
-      }
-    });
+    // this.setSubmitHandler(this._submitHandler);
+    // this.setClickArrowHandler(this._clickArrowHandler);
 
     render(this._fragment, this._evtComponent, RenderPosition.BEFORE_END);
     return this._fragment;
@@ -47,7 +36,7 @@ export default class Point {
   _onEscKeyDown(evt) {
     evt.preventDefault();
     if (evt.key === `Escape`) {
-      this._replaceFormToItem();
+      this.replaceFormToItem();
       document.removeEventListener(`keydown`, this._onEscKeyDown);
     }
   }
@@ -57,17 +46,25 @@ export default class Point {
     replace(this._editFormComponent, this._evtComponent);
   }
 
-  _replaceFormToItem() {
+  replaceFormToItem() {
+    if (this._closedEditFormFlag) {
+      replace(this._evtComponent, this._editFormComponent);
+    }
     this._closedEditFormFlag = true;
-    replace(this._evtComponent, this._editFormComponent);
+  }
+
+  _clickArrowHandler() {
+    this._replaceItemToForm();
+  }
+
+  _submitHandler() {
+    this.replaceFormToItem();
+    document.removeEventListener(`keydown`, this._onEscKeyDown);
+  }
+
+  _clickFormArrowHandler() {
+    this.replaceFormToItem();
+    document.removeEventListener(`keydown`, this._onEscKeyDown);
   }
 }
 
-export const generateEvents = (array) => {
-  const fragment = createContainerElement(`ul`, `trip-events__list`);
-  siteEventElement.innerHTML = ``;
-  for (let i = 0; i < array.length; i++) {
-    render(fragment, new Point(array, i).init(), RenderPosition.BEFORE_END);
-  }
-  return fragment;
-};
