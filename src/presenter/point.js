@@ -17,8 +17,12 @@ export default class Point {
   }
 
   init() {
-    this._evtComponent = new TripPoint(this._array[this._index]);
-    this._editFormComponent = new Form(this._array[this._index]).init();
+    this._prevEvtComponent = this._evtComponent;
+    this._prevEditComponent = this._editFormComponent;
+
+    this._point = this._array[this._index];
+    this._evtComponent = new TripPoint(this._point);
+    this._editFormComponent = new Form(this._point).init();
     this._fragment = document.createDocumentFragment();
 
     this._evtComponent.setClickArrowHandler(() => {
@@ -43,6 +47,9 @@ export default class Point {
 
   _replaceItemToForm() {
     this._closedEditFormFlag = false;
+    if (this._prevEditComponent) {
+      this._prevEditComponent.this._replaceFormToItem();
+    }
     replace(this._editFormComponent, this._evtComponent);
   }
 
