@@ -14,7 +14,8 @@ export default class EventsList {
     const fragment = createContainerElement(`ul`, `trip-events__list`);
     this._siteEventElement.innerHTML = ``;
     for (let i = 0; i < this._array.length; i++) {
-      render(fragment, new Point(this._array, i).init(), RenderPosition.BEFORE_END);
+      this._tripEvent = new Point(this._array, i).init();
+      render(fragment, this._tripEvent, RenderPosition.BEFORE_END);
     }
     return fragment;
   }

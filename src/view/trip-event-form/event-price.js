@@ -6,7 +6,7 @@ const createPriceFieldTemplate = (template) => {
     <span class="visually-hidden">Price</span>
     €
   </label>
-  <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${template ? template.price : ``}">
+  <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${template ? template.totalSum : `0`}">
 </div>`;
 };
 
@@ -16,6 +16,6 @@ export default class EventPrice extends Abstract {
     this._template = template;
   }
   getTemplate() {
-    return createPriceFieldTemplate();
+    return createPriceFieldTemplate(this._template);
   }
 }

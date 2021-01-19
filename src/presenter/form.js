@@ -1,4 +1,4 @@
-import {RenderPosition, render} from "../utils/render.js";
+import {RenderPosition, render, remove} from "../utils/render.js";
 import PointForm from "../view/trip-event-form/point-form.js";
 import {CITIES, offerDetails, getRandomImg, getRandomDescription} from "../mock/data.js";
 import TypesWrapper from "../view/trip-event-form/types-wrapper";
@@ -7,6 +7,7 @@ import TimeField from "../view/trip-event-form/time-field.js";
 import EventPrice from "../view/trip-event-form/event-price.js";
 import Offers from "../view/trip-event-form/offers.js";
 import FormPhoto from "../view/trip-event-form/form-photo.js";
+import Point from "./point.js";
 
 const newEventBtn = document.querySelector(`.trip-main__event-add-btn`);
 
@@ -19,9 +20,9 @@ export default class Form {
     this._timeField = new TimeField(this._point);
     this._price = new EventPrice(this._point);
     this._eventsListElement = null;
+    this._pointItem = new Point(this._point);
 
-    this._submitHandler = this._submitHandler.bind(this);
-    this._clickArrowHandler = this._clickArrowHandler.bind(this);
+    this._deleteButtonHandler = this._deleteButtonHandler.bind(this);
   }
 
   init() {
@@ -37,6 +38,7 @@ export default class Form {
 
   _renderFormTemplate(parentElement) {
     this._parentElement = parentElement;
+    this._form.setDeleteButtonHandler(this._deleteButtonHandler);
     render(this._parentElement, this._form, RenderPosition.AFTER_BEGIN);
   }
 
@@ -81,6 +83,11 @@ export default class Form {
       editFormFavoriteBtn.parentElement.removeChild(editFormFavoriteBtn);
       editFormRollUpBtn.parentElement.removeChild(editFormRollUpBtn);
     }
+  }
+
+  _deleteButtonHandler() {
+    remove(this._form);
+    document.removeEventListener(`keydown`, this._onEscKeydown);
   }
 
   _renderPhotos(point, fragment) {
@@ -144,25 +151,5 @@ export default class Form {
     this._form.parentElement.removeChild(this._form);
     newEventBtn.addEventListener(`click`, this._renderAddForm);
     document.removeEventListener(`keydown`, this._onEscKeydown);
-  }
-
-  _submitHandler(evt) {
-    evt.preventDefault();
-    this._cb.submit();
-  }
-
-  _clickArrowHandler(evt) {
-    evt.preventDefault();
-    this._cb.click();
-  }
-
-  setSubmitHandler(cb) {
-    this._cb.submit = cb;
-    this._element.addEventListener(`submit`, this._submitHandler);
-  }
-
-  setClickArrowHandler(cb) {
-    this._cb.click = cb;
-    this._element.querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickArrowHandler);
   }
 }
