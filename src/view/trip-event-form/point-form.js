@@ -46,6 +46,7 @@ export default class PointForm extends Abstract {
     super();
     this._template = template;
     this._submitHandler = this._submitHandler.bind(this);
+    this._clickCloseArrowHandler = this._clickCloseArrowHandler.bind(this);
     this._clickArrowHandler = this._clickArrowHandler.bind(this);
     this._deleteButtonHandler = this._deleteButtonHandler.bind(this);
   }
@@ -60,6 +61,11 @@ export default class PointForm extends Abstract {
     this._cb.click();
   }
 
+  _clickCloseArrowHandler(evt) {
+    evt.preventDefault();
+    this._cb.click();
+  }
+
   setSubmitHandler(cb) {
     this._cb.submit = cb;
     this.getElement().addEventListener(`submit`, this._submitHandler);
@@ -68,6 +74,11 @@ export default class PointForm extends Abstract {
   setClickArrowHandler(cb) {
     this._cb.click = cb;
     this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickArrowHandler);
+  }
+
+  setClickCloseArrowHandler(cb) {
+    this._cb.click = cb;
+    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickCloseArrowHandler);
   }
 
   setDeleteButtonHandler(cb) {

@@ -1,4 +1,4 @@
-import {RenderPosition, render, remove} from "../utils/render.js";
+import {RenderPosition, render, remove, replace} from "../utils/render.js";
 import PointForm from "../view/trip-event-form/point-form.js";
 import {CITIES, offerDetails, getRandomImg, getRandomDescription} from "../mock/data.js";
 import TypesWrapper from "../view/trip-event-form/types-wrapper";
@@ -8,6 +8,7 @@ import EventPrice from "../view/trip-event-form/event-price.js";
 import Offers from "../view/trip-event-form/offers.js";
 import FormPhoto from "../view/trip-event-form/form-photo.js";
 import Point from "./point.js";
+import TripPoint from "../view/trip-event/trip-point.js";
 
 const newEventBtn = document.querySelector(`.trip-main__event-add-btn`);
 
@@ -22,7 +23,11 @@ export default class Form {
     this._eventsListElement = null;
     this._pointItem = new Point(this._point);
 
+    this._currentPointElement = new TripPoint(this._point).getElement();
+
     this._deleteButtonHandler = this._deleteButtonHandler.bind(this);
+    this._clickCloseArrowHandler = this._clickCloseArrowHandler.bind(this);
+    this._clickArrowHandler = this._clickArrowHandler.bind(this);
   }
 
   init() {
@@ -32,13 +37,13 @@ export default class Form {
     } else {
       this._element = this._createEditForm(this._point);
     }
-
     return this._element;
   }
 
   _renderFormTemplate(parentElement) {
     this._parentElement = parentElement;
     this._form.setDeleteButtonHandler(this._deleteButtonHandler);
+    this._form.setClickCloseArrowHandler(this._clickCloseArrowHandler);
     render(this._parentElement, this._form, RenderPosition.AFTER_BEGIN);
   }
 
@@ -151,5 +156,21 @@ export default class Form {
     this._form.parentElement.removeChild(this._form);
     newEventBtn.addEventListener(`click`, this._renderAddForm);
     document.removeEventListener(`keydown`, this._onEscKeydown);
+  }
+
+  _clickArrowHandler() {
+    replace(this._form, this._currentPointElement);
+    document.addEventListener(`keydown`, this._onEscKeyDown);
+  }
+
+  _clickCloseArrowHandler() {
+    replace(this._currentPointElement, this._form);
+
+    this._currentPointElement.querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickArrowHandler);
+  }
+
+  setClickCloseArrowHandler(cb) {
+    this._cb.click = cb;
+    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickCloseArrowHandler);
   }
 }

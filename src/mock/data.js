@@ -139,7 +139,8 @@ const generateMockTripEvent = () => {
     endTime: generateRandomDateOffset(startDate),
     photos: getRandomImg(),
     totalSum: totalTripPrice,
-    checkedOffers: checkedOffersList
+    checkedOffers: checkedOffersList,
+    isFavorite: false
   };
 };
 

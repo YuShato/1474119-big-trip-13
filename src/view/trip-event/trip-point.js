@@ -52,10 +52,16 @@ export default class TripPoint extends Abstract {
     super();
     this._event = event;
     this._clickArrowHandler = this._clickArrowHandler.bind(this);
+    this._clickCloseArrowHandler = this._clickCloseArrowHandler.bind(this);
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
   }
 
   _clickArrowHandler(evt) {
+    evt.preventDefault();
+    this._cb.click();
+  }
+
+  _clickCloseArrowHandler(evt) {
     evt.preventDefault();
     this._cb.click();
   }
@@ -76,6 +82,12 @@ export default class TripPoint extends Abstract {
     this._callback.favoriteClick = callback;
     this.getElement().querySelector(`.event__favorite-btn`).addEventListener(`click`, this._favoriteClickHandler);
   }
+
+  setClickCloseArrowHandler(cb) {
+    this._cb.click = cb;
+    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickCloseArrowHandler);
+  }
+
 
   getTemplate() {
     return createTripPointTemplate(this._event);

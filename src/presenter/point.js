@@ -11,6 +11,7 @@ export default class Point {
     this.replaceFormToItem = this.replaceFormToItem.bind(this);
     this._onEscKeyDown = this._onEscKeyDown.bind(this);
     this._clickArrowHandler = this._clickArrowHandler.bind(this);
+
     this._closedEditFormFlag = true;
   }
 
@@ -58,4 +59,3 @@ export default class Point {
     document.addEventListener(`keydown`, this._onEscKeyDown);
   }
 }
-
