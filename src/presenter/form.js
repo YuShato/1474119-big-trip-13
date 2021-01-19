@@ -22,8 +22,8 @@ export default class Form {
     this._price = new EventPrice(this._point);
     this._eventsListElement = null;
     this._pointItem = new Point(this._point);
-
-    this._currentPointElement = new TripPoint(this._point).getElement();
+    this._currentPointElement = null;
+    this._isNewEventFormOpen = false;
 
     this._deleteButtonHandler = this._deleteButtonHandler.bind(this);
     this._clickCloseArrowHandler = this._clickCloseArrowHandler.bind(this);
@@ -79,6 +79,15 @@ export default class Form {
     descriptionElement.innerHTML = getDescription();
   }
 
+  _renderAddForm() {
+    const tripEventsListElement = document.querySelector(`.trip-events__list`);
+
+    if (!this._isNewEventFormOpen) {
+      render(tripEventsListElement, new Form().init(), RenderPosition.AFTER_BEGIN);
+      this._isNewEventFormOpen = true;
+    }
+  }
+
   _deleteEditFormButtons(point, fragment) {
     this._fragment = fragment;
     this._point = point;
@@ -92,6 +101,7 @@ export default class Form {
 
   _deleteButtonHandler() {
     remove(this._form);
+    newEventBtn.addEventListener(`click`, this._renderAddForm);
     document.removeEventListener(`keydown`, this._onEscKeydown);
   }
 
@@ -164,6 +174,7 @@ export default class Form {
   }
 
   _clickCloseArrowHandler() {
+    this._currentPointElement = new TripPoint(this._point).getElement();
     replace(this._currentPointElement, this._form);
 
     this._currentPointElement.querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickArrowHandler);
