@@ -140,7 +140,7 @@ const generateMockTripEvent = () => {
     photos: getRandomImg(),
     totalSum: totalTripPrice,
     checkedOffers: checkedOffersList,
-    isFavorite: false
+    isFavorite: getRandomBoolean()
   };
 };
 

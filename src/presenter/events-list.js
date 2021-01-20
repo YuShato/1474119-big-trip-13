@@ -16,6 +16,7 @@ export default class EventsList {
     for (let i = 0; i < this._array.length; i++) {
       this._tripEvent = new Point(this._array, i).init();
       render(fragment, this._tripEvent, RenderPosition.BEFORE_END);
+      document.addEventListener(`keydown`, this._onEscKeyDown);
     }
     return fragment;
   }

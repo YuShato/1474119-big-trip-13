@@ -28,11 +28,13 @@ export default class Form {
     this._deleteButtonHandler = this._deleteButtonHandler.bind(this);
     this._clickCloseArrowHandler = this._clickCloseArrowHandler.bind(this);
     this._clickArrowHandler = this._clickArrowHandler.bind(this);
+    this.clickNewEventBtnHandler = this.clickNewEventBtnHandler.bind(this);
   }
 
   init() {
     this._element = null;
     if (!this._point) {
+      this._isNewEventFormOpen = true;
       this._element = this._createAddForm();
     } else {
       this._element = this._createEditForm(this._point);
@@ -42,8 +44,10 @@ export default class Form {
 
   _renderFormTemplate(parentElement) {
     this._parentElement = parentElement;
+
     this._form.setDeleteButtonHandler(this._deleteButtonHandler);
     this._form.setClickCloseArrowHandler(this._clickCloseArrowHandler);
+    document.addEventListener(`keydown`, this._escKeyDownHandler);
     render(this._parentElement, this._form, RenderPosition.AFTER_BEGIN);
   }
 
@@ -79,13 +83,13 @@ export default class Form {
     descriptionElement.innerHTML = getDescription();
   }
 
-  _renderAddForm() {
+  clickNewEventBtnHandler() {
     const tripEventsListElement = document.querySelector(`.trip-events__list`);
-
     if (!this._isNewEventFormOpen) {
-      render(tripEventsListElement, new Form().init(), RenderPosition.AFTER_BEGIN);
+      render(tripEventsListElement, this.init(), RenderPosition.AFTER_BEGIN);
       this._isNewEventFormOpen = true;
     }
+    newEventBtn.removeEventListener(`click`, this.clickNewEventBtnHandler);
   }
 
   _deleteEditFormButtons(point, fragment) {
@@ -101,8 +105,8 @@ export default class Form {
 
   _deleteButtonHandler() {
     remove(this._form);
-    newEventBtn.addEventListener(`click`, this._renderAddForm);
-    document.removeEventListener(`keydown`, this._onEscKeydown);
+    newEventBtn.addEventListener(`click`, this.clickNewEventBtnHandler);
+    this._isNewEventFormOpen = false;
   }
 
   _renderPhotos(point, fragment) {
@@ -154,18 +158,9 @@ export default class Form {
     return this._fragment;
   }
 
-  _onEscKeydown(evt) {
-    if (evt.key === `Escape` || evt.key === `Esc`) {
-      evt.preventDefault();
-      this._removeAddForm();
-    }
-    document.removeEventListener(`keydown`, this._onEscKeydown);
-  }
-
-  _removeAddForm() {
-    this._form.parentElement.removeChild(this._form);
-    newEventBtn.addEventListener(`click`, this._renderAddForm);
-    document.removeEventListener(`keydown`, this._onEscKeydown);
+  removeAddForm() {
+    remove(this._form);
+    newEventBtn.addEventListener(`click`, this.clickNewEventBtnHandler);
   }
 
   _clickArrowHandler() {
@@ -175,8 +170,8 @@ export default class Form {
 
   _clickCloseArrowHandler() {
     this._currentPointElement = new TripPoint(this._point).getElement();
+    this._isNewEventFormOpen = false;
     replace(this._currentPointElement, this._form);
-
     this._currentPointElement.querySelector(`.event__rollup-btn`).addEventListener(`click`, this._clickArrowHandler);
   }
 
