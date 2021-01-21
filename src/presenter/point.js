@@ -11,7 +11,7 @@ export default class Point {
     this.replaceFormToItem = this.replaceFormToItem.bind(this);
     this._onEscKeyDown = this._onEscKeyDown.bind(this);
     this._clickArrowHandler = this._clickArrowHandler.bind(this);
-    this._isOpenEditFormFlag = false;
+    this._openedFormElement = null;
   }
 
   init() {
@@ -22,7 +22,6 @@ export default class Point {
     this._evtComponent = new TripPoint(this._currentPoint);
     this._editFormComponent = new Form(this._currentPoint).init();
     this._fragment = document.createDocumentFragment();
-    this._isOpenEditFormFlag = false;
     this._evtComponent.setClickArrowHandler(this._clickArrowHandler);
 
     render(this._fragment, this._evtComponent, RenderPosition.BEFORE_END);
@@ -34,25 +33,33 @@ export default class Point {
   _onEscKeyDown(evt) {
     evt.preventDefault();
     if (evt.key === `Escape` || evt.key === `Esc`) {
-      if (this._isOpenEditFormFlag) {
-        this.replaceFormToItem();
+      if (this._openedFormElement) {
+        this._replacePrevComponents();
       }
       document.removeEventListener(`keydown`, this._onEscKeyDown);
     }
   }
 
+  _replacePrevComponents() {
+    this._createdEventForm = document.querySelector(`.event--edit`);
+    this._changeEvtComponent = new TripPoint(this._openedFormElement);
+    replace(this._changeEvtComponent, this._createdEventForm);
+    this._changeEvtComponent.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
+      replace(this._createdEventForm, this._changeEvtComponent);
+    });
+
+    this._openedFormElement = null;
+  }
+
   _replaceItemToForm() {
-    this._isOpenEditFormFlag = true;
-    if (this._prevEditComponent) {
-      this._replaceFormToItem();
-    }
-    document.addEventListener(`keydown`, this._onEscKeyDown);
     replace(this._editFormComponent, this._evtComponent);
+    this._openedFormElement = this._array.find((elem) => elem.id === this._currentPoint.id);
+    document.addEventListener(`keydown`, this._onEscKeyDown);
   }
 
   replaceFormToItem() {
     replace(this._evtComponent, this._editFormComponent);
-    this._isOpenEditFormFlag = false;
+    document.addEventListener(`keydown`, this._onEscKeyDown);
   }
 
   _clickArrowHandler() {
