@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import {render, RenderPosition} from "./render.js";
-import {TIME_FORMAT, FULL_DATE_FORMAT, TRIP_TIME_FORMAT, TRIP_INFO_START_DATE_FORMAT} from "../const.js";
+import {TripTimeFormats} from "../const.js";
 
 dayjs.extend(duration);
 
@@ -31,10 +31,10 @@ export const renderCollectionUsingClass = (data, ClassName) => {
   return fragment;
 };
 
-export const humanizeTaskDueDate = (dueDate) => dayjs(dueDate).format(TRIP_INFO_START_DATE_FORMAT);
+export const humanizeTaskDueDate = (dueDate) => dayjs(dueDate).format(TripTimeFormats.TRIP_INFO_START_DATE_FORMAT);
 
-export const humanizeTaskDueTime = (dueDate) => dayjs(dueDate).format(TIME_FORMAT);
+export const humanizeTaskDueTime = (dueDate) => dayjs(dueDate).format(TripTimeFormats.TIME_FORMAT);
 
-export const timeGap = (startTime, endTime) => dayjs.duration(endTime.diff(startTime)).format(TRIP_TIME_FORMAT);
+export const timeGap = (startTime, endTime) => dayjs.duration(endTime.diff(startTime)).format(TripTimeFormats.TRIP_TIME_FORMAT);
 
-export const getTodayDate = () => dayjs().format(FULL_DATE_FORMAT);
+export const getTodayDate = () => dayjs().format(TripTimeFormats.FULL_DATE_FORMAT);

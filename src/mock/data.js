@@ -53,12 +53,12 @@ export const offerDetails = [
 
 const MAX_GAP_DAYS = 7;
 
-const maxGapHours = {
+const MaxGapHours = {
   MIN: 1,
   MAX: 10
 };
 
-const formPhotosCount = {
+const FormPhotosCount = {
   MIN: 1,
   MAX: 5,
   MAX_RANDOM_PHOTO: 1000
@@ -93,7 +93,7 @@ export const getRandomDescription = () => {
   return tripDescriptions.join(`. `);
 };
 
-const prices = {
+const Prices = {
   MIN: 3,
   MAX: 300
 };
@@ -101,7 +101,7 @@ const prices = {
 const generateRandomDate = () => dayjs().add(getRandomInt(-MAX_GAP_DAYS, MAX_GAP_DAYS), `days`);
 
 const generateRandomDateOffset = (startDate) => {
-  return startDate.add(getRandomPositiveInt(MAX_GAP_DAYS), `days`).add(getRandomInt(maxGapHours.MIN, maxGapHours.MAX), `hours`);
+  return startDate.add(getRandomPositiveInt(MAX_GAP_DAYS), `days`).add(getRandomInt(MaxGapHours.MIN, MaxGapHours.MAX), `hours`);
 };
 
 const generateCity = () => `${getArrayRandomElement(CITIES)}`;
@@ -111,19 +111,19 @@ const generateEvent = () => `${getArrayRandomElement(EVENT_TYPES)}`;
 export const getRandomImg = () => {
   const createPhotoSrc = () => {
     return {
-      src: `http://picsum.photos/248/152?r=${getRandomPositiveInt(formPhotosCount.MAX_RANDOM_PHOTO)}`,
+      src: `http://picsum.photos/248/152?r=${getRandomPositiveInt(FormPhotosCount.MAX_RANDOM_PHOTO)}`,
       description: getArrayRandomElement(sentences)
     };
   };
 
-  return new Array(getRandomInt(formPhotosCount.MIN, formPhotosCount.MAX)).fill({}).map(createPhotoSrc);
+  return new Array(getRandomInt(FormPhotosCount.MIN, FormPhotosCount.MAX)).fill({}).map(createPhotoSrc);
 };
 
 export const getAllEventsSum = (data) => data.reduce((sum, event) => sum + event.totalSum, 0);
 
 const generateMockTripEvent = () => {
   const startDate = generateRandomDate();
-  const eventPrice = getRandomInt(prices.MIN, prices.MAX);
+  const eventPrice = getRandomInt(Prices.MIN, Prices.MAX);
   const allOffers = getRandomOffer();
   const totalTripPrice = allOffers.filter((offer) => offer.isChecked === `checked`).reduce((sum, elem) => sum + elem.price, 0) + eventPrice;
   const checkedOffersList = generateTemplatesUsingClass(allOffers.filter((offer) => offer.isChecked), EventOffer);
