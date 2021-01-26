@@ -41,19 +41,22 @@ export default class Point {
   }
 
   _replacePrevComponents() {
-    this._createdEventForm = document.querySelector(`.event--edit`);
-    this._changeEvtComponent = new TripPoint(this._openedFormElement);
-    replace(this._changeEvtComponent, this._createdEventForm);
-    this._changeEvtComponent.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
-      replace(this._createdEventForm, this._changeEvtComponent);
-    });
-
-    this._openedFormElement = null;
+    if (this._openedFormElement) {
+      this._createdEventForm = document.querySelector(`.event--edit`);
+      this._changeEvtComponent = new TripPoint(this._openedFormElement);
+      replace(this._changeEvtComponent, this._createdEventForm);
+      this._changeEvtComponent.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, () => {
+        replace(this._createdEventForm, this._changeEvtComponent);
+      });
+      this._openedFormElement = null;
+    }
   }
 
   _replaceItemToForm() {
+    this._replacePrevComponents();
     replace(this._editFormComponent, this._evtComponent);
     this._openedFormElement = this._array.find((elem) => elem.id === this._currentPoint.id);
+
     document.addEventListener(`keydown`, this._onEscKeyDown);
   }
 
